@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Ubah Foto ke PDF Gratis & Aman - KlixFiles</title>
+    <meta name="description" content="KlixFiles: Alat gratis untuk mengubah dan menggabungkan banyak foto (JPG, PNG, WebP) menjadi satu file PDF. 100% diproses di perangkat Anda, tanpa server, privasi terjamin.">
+    <meta name="keywords" content="jpg ke pdf, foto ke pdf, konversi gambar ke pdf, gabung foto pdf, img to pdf offline, klixfiles, alat pdf aman">
+    <meta name="author" content="KlixFiles">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph (Untuk share di WhatsApp, Facebook, dll) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ubah Foto ke PDF dengan Aman - KlixFiles">
+    <meta property="og:description" content="Gabungkan foto menjadi PDF dengan mudah. File tidak pernah diunggah ke server, privasi 100% terjaga!">
+    <meta property="og:site_name" content="KlixFiles">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ubah Foto ke PDF dengan Aman - KlixFiles">
+    <meta name="twitter:description" content="Gabungkan foto menjadi PDF tanpa upload ke server. Cepat, aman, dan bisa offline.">
+
+    <link rel="shortcut icon" href="icon/klixpdf-favicon.svg" type="image/x-icon">
+    
+    <!-- PWA Manifest via Data URI -->
+    <link rel="manifest" id="manifest-link">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- SETELAN TEMA KONTEKSTUAL (MERAH UNTUK PDF) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 
+                        primary: '#ef4444', /* Merah Tailwind untuk Kategori PDF */
+                        secondary: '#10b981' /* Hijau untuk tombol eksekusi akhir */
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+        
+        .sortable-ghost { opacity: 0.4; background-color: #f3f4f6; }
+        .sortable-drag { cursor: grabbing !important; }
+        .image-card { transition: box-shadow 0.2s; }
+        .image-card:hover { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        
+        #cropperModal { backdrop-filter: blur(4px); }
+        .cropper-container { max-height: 60vh; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-2 flex-shrink-0 group">
+                <img src="icon/klixpdf-icon.svg" alt="Logo KlixFiles" class="h-8 w-8 object-contain transition-transform group-hover:scale-105">
+                <h1 class="font-bold text-xl tracking-tight text-gray-900">Klix<span class="text-primary">Files</span></h1>
+            </a>
+
+            <!-- Sisi Kanan Header -->
+            <div class="flex items-center gap-3 sm:gap-4">
+                <div class="hidden md:flex items-center gap-2 text-xs text-secondary bg-green-50 px-3 py-1.5 rounded-full border border-green-100">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Web 100% Offline dan Aman. Data Tidak Dikirim ke Server.</span>
+                </div>
+
+                <!-- Dropdown Menu "Semua Alat" -->
+                <div class="relative">
+                    <button id="btnMegaMenu" class="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 font-medium py-2 px-3 sm:px-4 rounded-lg transition-colors text-sm sm:text-base">
+                        <span><i class="fa-solid fa-layer-group text-primary mr-1 hidden sm:inline"></i> Alat</span>
+                        <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200" id="megaMenuIcon"></i>
+                    </button>
+
+                    <!-- Isi Dropdown (Highlight Merah untuk yang aktif) -->
+                    <div id="megaMenuContent" class="hidden absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 transform origin-top-right transition-all max-h-[70vh] overflow-y-auto overflow-x-hidden">
+                        <div class="p-2">
+                            <!-- Kategori PDF -->
+                            <div class="mb-1">
+                                <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-2">Alat PDF</div>
+                                
+                                <!-- State Aktif (Merah) -->
+                                <a href="index.html" class="flex items-center px-3 py-2.5 rounded-lg bg-red-50 text-red-700 font-medium">
+                                    <div class="w-6 text-center mr-2"><i class="fa-solid fa-images"></i></div>
+                                    <span>Foto ke PDF</span>
+                                </a>
+                                
+                                <a href="pdf-to-img.html" class="flex items-center px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                    <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-pdf"></i></div>
+                                    <span>PDF ke Foto</span>
+                                </a>
+                                <a href="#" class="flex items-center px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
+                                    <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-zipper"></i></div>
+                                    <span>Kompres PDF <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded-full ml-1">Segera</span></span>
+                                </a>
+                            </div>
+                            <!-- Kategori Lain (Placeholder) -->
+                            <div class="border-t border-gray-100 pt-1 mt-1">
+                                <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-2">Alat Gambar</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
+        
+        <!-- Area Kiri -->
+        <div class="flex-grow flex flex-col gap-4">
+            
+            <div class="mb-2">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Ubah Foto ke <span class="text-primary">PDF</span></h1>
+                <p class="text-sm text-gray-500 mt-1 sm:mt-2">Gabungkan banyak foto (JPG, PNG, WebP) menjadi satu dokumen PDF dengan mudah. Cukup *drag & drop*.</p>
+            </div>
+
+            <div class="md:hidden flex items-center gap-2 text-xs text-secondary bg-green-50 px-3 py-2 rounded-lg border border-green-100 mb-2">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Web 100% Offline dan Aman. Data Tidak Dikirim ke Server.</span>
+            </div>
+
+            <!-- Dropzone -->
+            <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-xl bg-white p-8 text-center cursor-pointer hover:bg-gray-50 hover:border-primary transition-colors flex flex-col items-center justify-center min-h-[160px]">
+                <input type="file" id="fileInput" multiple accept="image/jpeg, image/png, image/webp" class="hidden">
+                <i class="fa-solid fa-images text-4xl text-gray-400 mb-3"></i>
+                <h3 class="text-lg font-semibold text-gray-700">Pilih Foto atau Drag & Drop</h3>
+                <p class="text-sm text-gray-500 mt-1">Mendukung JPG, PNG, dan WebP</p>
+                <button class="mt-4 bg-primary text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-red-600 shadow-sm transition-colors" onclick="document.getElementById('fileInput').click()">
+                    Jelajahi File
+                </button>
+            </div>
+
+            <div class="flex justify-between items-center mt-4 hidden" id="gridHeader">
+                <h2 class="font-semibold text-gray-800"><span id="photoCount">0</span> Foto Dipilih</h2>
+                <button onclick="clearAll()" class="text-sm text-primary hover:text-red-700 font-medium">Hapus Semua</button>
+            </div>
+
+            <div id="imageGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 pb-8">
+                <!-- Foto muncul di sini -->
+            </div>
+            
+            <div id="emptyState" class="flex-grow flex flex-col items-center justify-center text-gray-400 py-12">
+                <i class="fa-regular fa-images text-5xl mb-4 opacity-50"></i>
+                <p>Belum ada foto yang dipilih.</p>
+            </div>
+        </div>
+
+        <!-- Area Kanan -->
+        <div class="w-full lg:w-80 flex-shrink-0">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 sticky top-24">
+                <h2 class="font-semibold text-lg text-gray-800 border-b pb-3 mb-4"><i class="fa-solid fa-gear mr-2 text-gray-500"></i>Pengaturan PDF</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nama File Output</label>
+                        <div class="flex shadow-sm rounded-md">
+                            <input type="text" id="outputFileName" value="KlixFiles-Export" placeholder="Masukkan nama file" class="flex-grow border-gray-300 rounded-l-md focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2 px-3 border border-r-0 text-sm bg-white outline-none">
+                            <span class="inline-flex items-center px-3 rounded-r-md border border-gray-300 bg-gray-100 text-gray-600 text-sm font-medium cursor-not-allowed">
+                                .pdf
+                            </span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Ukuran Kertas</label>
+                        <select id="setPaperSize" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2 px-3 border text-sm bg-white">
+                            <option value="a4">A4 (210 x 297 mm)</option>
+                            <option value="a5">A5 (148 x 210 mm)</option>
+                            <option value="letter">Letter (8.5 x 11 in)</option>
+                            <option value="original">Original (Sesuai Foto)</option>
+                        </select>
+                    </div>
+
+                    <div id="orientationWrapper">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Orientasi</label>
+                        <select id="setOrientation" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2 px-3 border text-sm bg-white">
+                            <option value="p">Portrait (Berdiri)</option>
+                            <option value="l">Landscape (Mendatar)</option>
+                        </select>
+                    </div>
+
+                    <div id="marginWrapper">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Margin</label>
+                        <select id="setMargin" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2 px-3 border text-sm bg-white">
+                            <option value="0">Tidak Ada</option>
+                            <option value="10">Kecil (10 mm)</option>
+                            <option value="20">Sedang (20 mm)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label id="fitLabel" class="block text-sm font-medium text-gray-700 mb-1">Pencocokan Gambar</label>
+                        <select id="setFit" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2 px-3 border text-sm bg-white">
+                            <option value="fit">Fit (Pas ke halaman)</option>
+                            <option value="fill">Fill (Penuhi halaman)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Kualitas PDF</label>
+                        <select id="setQuality" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2 px-3 border text-sm bg-white">
+                            <option value="high">Tinggi (Resolusi & File besar)</option>
+                            <option value="medium" selected>Sedang (Seimbang)</option>
+                            <option value="low">Rendah (File kecil)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t">
+                    <button id="btnGenerate" onclick="generatePDF()" class="w-full bg-secondary text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled>
+                        <i class="fa-solid fa-file-export"></i> Buat PDF Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="cropperModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col">
+            <div class="p-4 border-b flex justify-between items-center bg-gray-50">
+                <h3 class="font-bold text-lg">Edit Foto</h3>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-primary"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            
+            <div class="p-4 bg-gray-900 flex-grow relative" style="height: 60vh;">
+                <img id="cropperImage" src="" alt="Picture to crop" class="max-w-full block">
+            </div>
+            
+            <div class="p-4 bg-gray-50 border-t flex flex-wrap gap-2 justify-between items-center">
+                <div class="flex gap-2">
+                    <button onclick="rotateCropper(-90)" class="px-3 py-2 bg-white border rounded shadow-sm hover:bg-gray-100 text-sm font-medium"><i class="fa-solid fa-rotate-left mr-1"></i>Kiri</button>
+                    <button onclick="rotateCropper(90)" class="px-3 py-2 bg-white border rounded shadow-sm hover:bg-gray-100 text-sm font-medium"><i class="fa-solid fa-rotate-right mr-1"></i>Kanan</button>
+                    <button onclick="resetCropper()" class="px-3 py-2 bg-white border rounded shadow-sm hover:bg-gray-100 text-sm font-medium text-primary"><i class="fa-solid fa-arrow-rotate-left mr-1"></i>Reset</button>
+                </div>
+                <div class="flex gap-2 mt-2 sm:mt-0">
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 hover:bg-gray-200 rounded font-medium">Batal</button>
+                    <button onclick="applyCrop()" class="px-4 py-2 bg-primary text-white rounded shadow hover:bg-red-600 font-medium"><i class="fa-solid fa-check mr-1"></i>Terapkan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingOverlay" class="fixed inset-0 bg-white bg-opacity-90 z-50 hidden flex-col items-center justify-center">
+        <div class="w-16 h-16 border-4 border-gray-200 border-t-primary rounded-full animate-spin mb-4"></div>
+        <h2 class="text-xl font-bold text-gray-800 mb-2">Membuat PDF...</h2>
+        <p id="loadingProgress" class="text-gray-500 font-medium">Memproses 0 dari 0 foto</p>
+        <p class="text-xs text-gray-400 mt-4 max-w-xs text-center">Mohon jangan tutup halaman ini. Pemrosesan dilakukan sepenuhnya di perangkat Anda.</p>
+    </div>
+
+    <script>
+        // Dropdown Menu Logic
+        const btnMegaMenu = document.getElementById('btnMegaMenu');
+        const megaMenuContent = document.getElementById('megaMenuContent');
+        const megaMenuIcon = document.getElementById('megaMenuIcon');
+
+        btnMegaMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            megaMenuContent.classList.toggle('hidden');
+            megaMenuIcon.classList.toggle('rotate-180');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!megaMenuContent.contains(e.target) && !btnMegaMenu.contains(e.target)) {
+                megaMenuContent.classList.add('hidden');
+                megaMenuIcon.classList.remove('rotate-180');
+            }
+        });
+
+        // State Management
+        let imagesData = new Map();
+        let currentEditingId = null;
+        let cropperInstance = null;
+        let sortableInstance = null;
+
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const imageGrid = document.getElementById('imageGrid');
+        const emptyState = document.getElementById('emptyState');
+        const gridHeader = document.getElementById('gridHeader');
+        const photoCount = document.getElementById('photoCount');
+        const btnGenerate = document.getElementById('btnGenerate');
+        const paperSizeSelect = document.getElementById('setPaperSize');
+        const orientationWrapper = document.getElementById('orientationWrapper');
+        const marginWrapper = document.getElementById('marginWrapper');
+
+        // Drag & Drop (Hover effect now uses bg-red-50 to match theme)
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('border-primary', 'bg-red-50');
+        });
+        
+        dropzone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('border-primary', 'bg-red-50');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('border-primary', 'bg-red-50');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = ''; 
+        });
+
+        paperSizeSelect.addEventListener('change', (e) => {
+            const fitSelect = document.getElementById('setFit');
+            const fitLabel = document.getElementById('fitLabel');
+
+            if(e.target.value === 'original') {
+                orientationWrapper.classList.add('opacity-50', 'pointer-events-none');
+                marginWrapper.classList.add('opacity-50', 'pointer-events-none');
+                fitLabel.textContent = "Mode Lebar (Width)";
+                fitSelect.innerHTML = `
+                    <option value="uniform_width">Lebar Seragam (Ikuti foto pertama)</option>
+                    <option value="original_width">Lebar Asli (Beda-beda)</option>
+                `;
+            } else {
+                orientationWrapper.classList.remove('opacity-50', 'pointer-events-none');
+                marginWrapper.classList.remove('opacity-50', 'pointer-events-none');
+                fitLabel.textContent = "Pencocokan Gambar";
+                fitSelect.innerHTML = `
+                    <option value="fit">Fit (Pas ke halaman)</option>
+                    <option value="fill">Fill (Penuhi halaman)</option>
+                `;
+            }
+        });
+
+        function generateId() {
+            return Math.random().toString(36).substr(2, 9);
+        }
+
+        function handleFiles(files) {
+            const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            let addedCount = 0;
+
+            Array.from(files).forEach(file => {
+                if (validTypes.includes(file.type)) {
+                    const id = generateId();
+                    const blobUrl = URL.createObjectURL(file);
+                    
+                    imagesData.set(id, {
+                        originalFile: file,
+                        blobUrl: blobUrl,
+                        filename: file.name
+                    });
+                    
+                    addImageToGrid(id, blobUrl, file.name);
+                    addedCount++;
+                }
+            });
+
+            if (addedCount > 0) {
+                updateUI();
+                initSortable();
+            }
+        }
+
+        function addImageToGrid(id, url, filename) {
+            const div = document.createElement('div');
+            div.className = 'image-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative group cursor-grab image-item flex flex-col';
+            div.dataset.id = id;
+            
+            div.innerHTML = `
+                <div class="relative w-full aspect-square bg-gray-100 overflow-hidden">
+                    <img src="${url}" class="w-full h-full object-cover" alt="thumbnail">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                        <button onclick="openEditor('${id}', event)" class="bg-white text-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors" title="Edit">
+                            <i class="fa-solid fa-crop-simple"></i>
+                        </button>
+                        <button onclick="deleteImage('${id}', event)" class="bg-white text-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors" title="Hapus">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                    <div class="absolute top-2 left-2 bg-black bg-opacity-60 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center order-badge"></div>
+                </div>
+                <div class="p-2 text-xs text-gray-600 truncate border-t flex items-center justify-between">
+                    <span class="truncate flex-grow" title="${filename}">${filename}</span>
+                    <i class="fa-solid fa-grip-vertical text-gray-300 ml-2 cursor-grab drag-handle"></i>
+                </div>
+            `;
+            
+            imageGrid.appendChild(div);
+        }
+
+        function initSortable() {
+            if (!sortableInstance) {
+                sortableInstance = new Sortable(imageGrid, {
+                    animation: 150,
+                    ghostClass: 'sortable-ghost',
+                    dragClass: 'sortable-drag',
+                    handle: '.image-card', 
+                    onEnd: () => { updateOrderBadges(); }
+                });
+            }
+            updateOrderBadges();
+        }
+
+        function updateOrderBadges() {
+            const items = document.querySelectorAll('.image-item .order-badge');
+            items.forEach((badge, index) => {
+                badge.textContent = index + 1;
+            });
+        }
+
+        function updateUI() {
+            const count = imagesData.size;
+            photoCount.textContent = count;
+            
+            if (count > 0) {
+                emptyState.classList.add('hidden');
+                gridHeader.classList.remove('hidden');
+                btnGenerate.disabled = false;
+            } else {
+                emptyState.classList.remove('hidden');
+                gridHeader.classList.add('hidden');
+                btnGenerate.disabled = true;
+            }
+            updateOrderBadges();
+        }
+
+        function deleteImage(id, event) {
+            if (event) event.stopPropagation();
+            const data = imagesData.get(id);
+            if (data) {
+                URL.revokeObjectURL(data.blobUrl); 
+                imagesData.delete(id);
+            }
+            const el = document.querySelector(`.image-item[data-id="${id}"]`);
+            if (el) el.remove();
+            
+            updateUI();
+        }
+
+        function clearAll() {
+            if(confirm("Apakah Anda yakin ingin menghapus semua foto?")) {
+                imagesData.forEach(data => URL.revokeObjectURL(data.blobUrl));
+                imagesData.clear();
+                imageGrid.innerHTML = '';
+                updateUI();
+            }
+        }
+
+        function openEditor(id, event) {
+            if (event) event.stopPropagation();
+            currentEditingId = id;
+            const data = imagesData.get(id);
+            
+            const modal = document.getElementById('cropperModal');
+            const imgElement = document.getElementById('cropperImage');
+            
+            imgElement.src = data.blobUrl;
+            modal.classList.remove('hidden');
+            
+            setTimeout(() => {
+                if (cropperInstance) cropperInstance.destroy();
+                cropperInstance = new Cropper(imgElement, {
+                    viewMode: 1,
+                    dragMode: 'move',
+                    autoCropArea: 1,
+                    restore: false,
+                    guides: true,
+                    center: true,
+                    highlight: false,
+                    cropBoxMovable: true,
+                    cropBoxResizable: true,
+                    toggleDragModeOnDblclick: false,
+                });
+            }, 100);
+        }
+
+        function rotateCropper(degree) {
+            if (cropperInstance) cropperInstance.rotate(degree);
+        }
+
+        function resetCropper() {
+            if (cropperInstance) cropperInstance.reset();
+        }
+
+        function closeModal() {
+            document.getElementById('cropperModal').classList.add('hidden');
+            if (cropperInstance) {
+                cropperInstance.destroy();
+                cropperInstance = null;
+            }
+            currentEditingId = null;
+        }
+
+        function applyCrop() {
+            if (!cropperInstance || !currentEditingId) return;
+            
+            const canvas = cropperInstance.getCroppedCanvas();
+            if (!canvas) return;
+            
+            canvas.toBlob((blob) => {
+                const newUrl = URL.createObjectURL(blob);
+                const data = imagesData.get(currentEditingId);
+                
+                URL.revokeObjectURL(data.blobUrl);
+                data.blobUrl = newUrl;
+                
+                const imgEl = document.querySelector(`.image-item[data-id="${currentEditingId}"] img`);
+                if (imgEl) imgEl.src = newUrl;
+                
+                closeModal();
+            }, 'image/jpeg', 0.95);
+        }
+
+        function getCanvasFromUrl(url) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = "Anonymous";
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    resolve({ canvas, width: img.width, height: img.height });
+                };
+                img.onerror = reject;
+                img.src = url;
+            });
+        }
+
+        async function generatePDF() {
+            if (imagesData.size === 0) return;
+
+            const sortedIds = Array.from(document.querySelectorAll('.image-item')).map(el => el.dataset.id);
+            const paperSize = document.getElementById('setPaperSize').value;
+            const orientation = document.getElementById('setOrientation').value; 
+            const marginValue = parseInt(document.getElementById('setMargin').value);
+            const fitMode = document.getElementById('setFit').value; 
+            const qualitySetting = document.getElementById('setQuality').value;
+
+            let maxDim, jpegQuality;
+            switch(qualitySetting) {
+                case 'low': maxDim = 1000; jpegQuality = 0.6; break;
+                case 'high': maxDim = 3000; jpegQuality = 0.95; break;
+                default: maxDim = 1500; jpegQuality = 0.8; break; 
+            }
+
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const loadingProgress = document.getElementById('loadingProgress');
+            loadingOverlay.classList.remove('hidden');
+            loadingOverlay.classList.add('flex');
+
+            try {
+                const { jsPDF } = window.jspdf;
+                let doc = null;
+                let baseWidthMM = null; 
+
+                for (let i = 0; i < sortedIds.length; i++) {
+                    loadingProgress.textContent = `Memproses ${i + 1} dari ${sortedIds.length} foto`;
+                    await new Promise(r => setTimeout(r, 50)); 
+                    
+                    const id = sortedIds[i];
+                    const data = imagesData.get(id);
+                    
+                    const { canvas, width: origW, height: origH } = await getCanvasFromUrl(data.blobUrl);
+                    
+                    let scale = 1;
+                    if (origW > maxDim || origH > maxDim) {
+                        scale = Math.min(maxDim / origW, maxDim / origH);
+                    }
+                    const compW = Math.round(origW * scale);
+                    const compH = Math.round(origH * scale);
+                    
+                    const compCanvas = document.createElement('canvas');
+                    compCanvas.width = compW;
+                    compCanvas.height = compH;
+                    const ctx = compCanvas.getContext('2d');
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, compW, compH);
+                    ctx.drawImage(canvas, 0, 0, compW, compH);
+                    
+                    const compressedDataUrl = compCanvas.toDataURL('image/jpeg', jpegQuality);
+
+                    let pageFormat = paperSize;
+                    let pageOrient = orientation;
+                    let pageW, pageH;
+
+                    if (paperSize === 'original') {
+                        const wMM = (origW * 25.4) / 96;
+                        const hMM = (origH * 25.4) / 96;
+                        
+                        if (fitMode === 'uniform_width') {
+                            if (i === 0) baseWidthMM = wMM; 
+                            pageW = baseWidthMM;
+                            pageH = hMM * (baseWidthMM / wMM); 
+                            pageFormat = [pageW, pageH];
+                            pageOrient = pageW > pageH ? 'l' : 'p';
+                        } else {
+                            pageFormat = [wMM, hMM];
+                            pageOrient = wMM > hMM ? 'l' : 'p';
+                            pageW = wMM;
+                            pageH = hMM;
+                        }
+                    } else {
+                        if (paperSize === 'a4') { pageW = 210; pageH = 297; }
+                        else if (paperSize === 'a5') { pageW = 148; pageH = 210; }
+                        else if (paperSize === 'letter') { pageW = 215.9; pageH = 279.4; }
+                        
+                        if (orientation === 'l') {
+                            const temp = pageW; pageW = pageH; pageH = temp;
+                        }
+                    }
+
+                    if (doc === null) {
+                        doc = new jsPDF({ orientation: pageOrient, unit: 'mm', format: pageFormat });
+                    } else {
+                        doc.addPage(pageFormat, pageOrient);
+                    }
+
+                    let finalMargin = paperSize === 'original' ? 0 : marginValue;
+                    let workW = pageW - (2 * finalMargin);
+                    let workH = pageH - (2 * finalMargin);
+
+                    let drawW, drawH, drawX, drawY;
+
+                    if (paperSize === 'original') {
+                        drawW = pageW;
+                        drawH = pageH;
+                        drawX = 0; 
+                        drawY = 0;
+                    } else {
+                        const ratioW = workW / origW;
+                        const ratioH = workH / origH;
+                        
+                        let ratio;
+                        if (fitMode === 'fit') {
+                            ratio = Math.min(ratioW, ratioH);
+                        } else { 
+                            ratio = Math.max(ratioW, ratioH);
+                        }
+
+                        drawW = origW * ratio;
+                        drawH = origH * ratio;
+                        
+                        drawX = finalMargin + (workW - drawW) / 2;
+                        drawY = finalMargin + (workH - drawH) / 2;
+                    }
+
+                    doc.addImage(compressedDataUrl, 'JPEG', drawX, drawY, drawW, drawH);
+                    
+                    compCanvas.width = 0;
+                    canvas.width = 0;
+                }
+
+                loadingProgress.textContent = "Menyimpan File PDF...";
+                await new Promise(r => setTimeout(r, 100)); 
+                
+                let fileNameInput = document.getElementById('outputFileName').value.trim();
+                if (!fileNameInput) {
+                    fileNameInput = 'KlixFiles-Export';
+                }
+                
+                doc.save(`${fileNameInput}.pdf`);
+
+            } catch (error) {
+                console.error(error);
+                alert('Terjadi kesalahan saat membuat PDF: ' + error.message);
+            } finally {
+                loadingOverlay.classList.add('hidden');
+                loadingOverlay.classList.remove('flex');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const manifestData = {
+                name: "KlixFiles",
+                short_name: "KlixFiles",
+                description: "Ubah foto menjadi PDF secara offline dan aman.",
+                start_url: "./",
+                display: "standalone",
+                background_color: "#ffffff",
+                theme_color: "#ef4444", // Ubah warna tema ke merah
+                icons: [{
+                    src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iI2VmNDQ0NCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjAwIiBmaWxsPSJ3aGl0ZSI+UERGPC90ZXh0Pjwvc3ZnPg==", // Ikon PWA diubah menjadi merah (ef4444)
+                    sizes: "512x512",
+                    type: "image/svg+xml"
+                }]
+            };
+            const manifestString = JSON.stringify(manifestData);
+            const manifestBlob = new Blob([manifestString], {type: 'application/json'});
+            document.getElementById('manifest-link').href = URL.createObjectURL(manifestBlob);
+
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('./sw.js').catch((err) => {
+                        console.log('SW Gagal:', err);
+                    });
+                });
+            }
+        });
+    </script>
+    <script type='text/javascript' src='https://edge-cdn.trakteer.id/js/trbtn-overlay.min.js?v=14-05-2025'></script>
+    <script type='text/javascript' class='troverlay'>(function() {var trbtnId = trbtnOverlay.init('Bantu Operasional Web','#EF4444','https://trakteer.id/v1/mawramadhan/tip/embed/modal','https://edge-cdn.trakteer.id/images/embed/trbtn-icon.png?v=14-05-2025','32','floating-left');trbtnOverlay.draw(trbtnId);})();</script>
+</body>
+</html>

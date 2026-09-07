@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Ekstrak PDF ke Foto Gratis & Aman - KlixFiles</title>
+    <meta name="description" content="KlixFiles: Ekstrak dan ubah halaman file PDF Anda menjadi gambar JPG atau PNG dengan mudah. 100% diproses di perangkat Anda secara offline, privasi terjamin.">
+    <meta name="keywords" content="pdf ke jpg, pdf ke png, ekstrak pdf, ubah pdf ke foto, pdf to image offline, klixfiles, alat pdf aman">
+    <meta name="author" content="KlixFiles">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ekstrak PDF ke Foto dengan Aman - KlixFiles">
+    <meta property="og:description" content="Ubah halaman PDF menjadi gambar JPG/PNG secara instan tanpa upload ke server. Privasi 100% terjaga!">
+    <meta property="og:site_name" content="KlixFiles">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ekstrak PDF ke Foto dengan Aman - KlixFiles">
+    <meta name="twitter:description" content="Ubah halaman PDF menjadi gambar JPG/PNG tanpa upload ke server. Cepat, aman, dan offline.">
+
+    <link rel="shortcut icon" href="icon/klixpdf-favicon.svg" type="image/x-icon">
+    <link rel="manifest" id="manifest-link">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Library Ekstrak PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 
+                        primary: '#ef4444', /* Merah Tailwind untuk Kategori PDF */
+                        secondary: '#10b981' /* Hijau untuk tombol eksekusi akhir */
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+        
+        .page-card { transition: box-shadow 0.2s; }
+        .page-card:hover { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 flex-shrink-0 group">
+                <img src="icon/klixpdf-icon.svg" alt="Logo KlixFiles" class="h-8 w-8 object-contain transition-transform group-hover:scale-105">
+                <h1 class="font-bold text-xl tracking-tight text-gray-900">Klix<span class="text-primary">Files</span></h1>
+            </a>
+
+            <div class="flex items-center gap-3 sm:gap-4">
+                <div class="hidden md:flex items-center gap-2 text-xs text-secondary bg-green-50 px-3 py-1.5 rounded-full border border-green-100">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Web 100% Offline dan Aman. Data Tidak Dikirim ke Server.</span>
+                </div>
+
+                <div class="relative">
+                    <button id="btnMegaMenu" class="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 font-medium py-2 px-3 sm:px-4 rounded-lg transition-colors text-sm sm:text-base">
+                        <span><i class="fa-solid fa-layer-group text-primary mr-1 hidden sm:inline"></i> Alat</span>
+                        <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200" id="megaMenuIcon"></i>
+                    </button>
+
+                    <div id="megaMenuContent" class="hidden absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden transform origin-top-right transition-all">
+                        <div class="p-2">
+                            <div class="mb-1">
+                                <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-2">Alat PDF</div>
+                                
+                                <a href="index.html" class="flex items-center px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                    <div class="w-6 text-center mr-2"><i class="fa-regular fa-images"></i></div>
+                                    <span>Foto ke PDF</span>
+                                </a>
+                                
+                                <!-- State Aktif (Merah) dipindah ke sini -->
+                                <a href="pdf-to-img.html" class="flex items-center px-3 py-2.5 rounded-lg bg-red-50 text-red-700 font-medium">
+                                    <div class="w-6 text-center mr-2"><i class="fa-solid fa-file-pdf"></i></div>
+                                    <span>PDF ke Foto</span>
+                                </a>
+                                
+                                <a href="#" class="flex items-center px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
+                                    <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-zipper"></i></div>
+                                    <span>Kompres PDF <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded-full ml-1">Segera</span></span>
+                                </a>
+                            </div>
+                            <div class="border-t border-gray-100 pt-1 mt-1">
+                                <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-2">Alat Gambar</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
+        
+        <div class="flex-grow flex flex-col gap-4">
+            <div class="mb-2">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Ekstrak <span class="text-primary">PDF</span> ke Foto</h1>
+                <p class="text-sm text-gray-500 mt-1 sm:mt-2">Ubah setiap halaman dokumen PDF Anda menjadi gambar (JPG/PNG) beresolusi tinggi dengan aman.</p>
+            </div>
+            
+            <div class="md:hidden flex items-center gap-2 text-xs text-secondary bg-green-50 px-3 py-2 rounded-lg border border-green-100 mb-2">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Web 100% Offline dan Aman. Data Tidak Dikirim ke Server.</span>
+            </div>
+
+            <!-- Dropzone -->
+            <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-xl bg-white p-8 text-center cursor-pointer hover:bg-gray-50 hover:border-primary transition-colors flex flex-col items-center justify-center min-h-[160px]">
+                <input type="file" id="fileInput" accept="application/pdf" class="hidden">
+                <i class="fa-solid fa-file-pdf text-4xl text-gray-400 mb-3 group-hover:text-primary transition-colors"></i>
+                <h3 class="text-lg font-semibold text-gray-700">Pilih File PDF atau Drag & Drop</h3>
+                <p class="text-sm text-gray-500 mt-1" id="fileNameDisplay">Maksimal 1 file PDF per pemrosesan</p>
+                <button class="mt-4 bg-primary text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-red-600 shadow-sm transition-colors" onclick="document.getElementById('fileInput').click()">
+                    Jelajahi File
+                </button>
+            </div>
+
+            <div class="flex justify-between items-center mt-4 hidden" id="gridHeader">
+                <h2 class="font-semibold text-gray-800">Menampilkan <span id="pageCount">0</span> Halaman</h2>
+                <button onclick="clearAll()" class="text-sm text-primary hover:text-red-700 font-medium">Batal & Hapus</button>
+            </div>
+
+            <div id="imageGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 pb-8">
+                <!-- Preview halaman PDF muncul di sini -->
+            </div>
+            
+            <div id="emptyState" class="flex-grow flex flex-col items-center justify-center text-gray-400 py-12">
+                <i class="fa-regular fa-file-pdf text-5xl mb-4 opacity-50"></i>
+                <p>Belum ada file PDF yang dipilih.</p>
+            </div>
+        </div>
+
+        <div class="w-full lg:w-80 flex-shrink-0">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 sticky top-24">
+                <h2 class="font-semibold text-lg text-gray-800 border-b pb-3 mb-4"><i class="fa-solid fa-sliders mr-2 text-gray-500"></i>Pengaturan Ekstrak</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nama Folder (ZIP)</label>
+                        <div class="flex shadow-sm rounded-md">
+                            <input type="text" id="outputFileName" value="KlixFiles-Images" placeholder="Masukkan nama" class="flex-grow border-gray-300 rounded-l-md focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2 px-3 border border-r-0 text-sm bg-white outline-none">
+                            <span class="inline-flex items-center px-3 rounded-r-md border border-gray-300 bg-gray-100 text-gray-600 text-sm font-medium cursor-not-allowed">
+                                .zip
+                            </span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Format Gambar</label>
+                        <select id="setFormat" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2 px-3 border text-sm bg-white">
+                            <option value="jpeg">JPG (Ukuran File Kecil)</option>
+                            <option value="png">PNG (Kualitas Terbaik)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Resolusi Gambar</label>
+                        <select id="setResolution" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2 px-3 border text-sm bg-white">
+                            <option value="1">Standar (Sesuai PDF Asli)</option>
+                            <option value="2" selected>Tinggi (2x Lebih Tajam)</option>
+                            <option value="3">Sangat Tinggi (Cocok untuk Print)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t">
+                    <button id="btnGenerate" onclick="extractToImages()" class="w-full bg-secondary text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled>
+                        <i class="fa-solid fa-file-zipper"></i> Ekstrak & Download ZIP
+                    </button>
+                    <p class="text-[11px] text-gray-400 text-center mt-2 leading-tight">Semua halaman akan dijadikan foto dan dibungkus dalam file ZIP.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="loadingOverlay" class="fixed inset-0 bg-white bg-opacity-90 z-50 hidden flex-col items-center justify-center">
+        <div class="w-16 h-16 border-4 border-gray-200 border-t-primary rounded-full animate-spin mb-4"></div>
+        <h2 class="text-xl font-bold text-gray-800 mb-2" id="loadingText">Memuat PDF...</h2>
+        <p id="loadingProgress" class="text-gray-500 font-medium">Mohon tunggu sebentar</p>
+        <p class="text-xs text-gray-400 mt-4 max-w-xs text-center">Jangan tutup halaman ini. Pemrosesan bisa memakan waktu tergantung jumlah halaman.</p>
+    </div>
+
+    <script>
+        // Dropdown Menu Logic
+        const btnMegaMenu = document.getElementById('btnMegaMenu');
+        const megaMenuContent = document.getElementById('megaMenuContent');
+        const megaMenuIcon = document.getElementById('megaMenuIcon');
+
+        btnMegaMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            megaMenuContent.classList.toggle('hidden');
+            megaMenuIcon.classList.toggle('rotate-180');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!megaMenuContent.contains(e.target) && !btnMegaMenu.contains(e.target)) {
+                megaMenuContent.classList.add('hidden');
+                megaMenuIcon.classList.remove('rotate-180');
+            }
+        });
+
+        // State Management PDF
+        let currentPdf = null;
+        let pdfFileName = "KlixFiles-Images";
+        let excludedPages = new Set();
+
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const imageGrid = document.getElementById('imageGrid');
+        const emptyState = document.getElementById('emptyState');
+        const gridHeader = document.getElementById('gridHeader');
+        const pageCount = document.getElementById('pageCount');
+        const btnGenerate = document.getElementById('btnGenerate');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        const outputFileName = document.getElementById('outputFileName');
+        
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loadingText = document.getElementById('loadingText');
+        const loadingProgress = document.getElementById('loadingProgress');
+
+        // Drag & Drop
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('border-primary', 'bg-red-50');
+        });
+        
+        dropzone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('border-primary', 'bg-red-50');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('border-primary', 'bg-red-50');
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+            fileInput.value = '';
+        });
+
+        async function handleFile(file) {
+            if (file.type !== 'application/pdf') {
+                alert('Tolong masukkan file bereksistensi PDF.');
+                return;
+            }
+
+            showLoading("Memuat PDF...", "Menganalisa dokumen");
+            
+            try {
+                clearAll(false);
+                let baseName = file.name.replace(/\.[^/.]+$/, "");
+                outputFileName.value = baseName + "-Images";
+                fileNameDisplay.textContent = `File Aktif: ${file.name}`;
+                
+                const arrayBuffer = await file.arrayBuffer();
+                currentPdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+                const totalPages = currentPdf.numPages;
+                pageCount.textContent = totalPages;
+
+                emptyState.classList.add('hidden');
+                gridHeader.classList.remove('hidden');
+                btnGenerate.disabled = false;
+
+                for (let i = 1; i <= totalPages; i++) {
+                    loadingProgress.textContent = `Membuat preview halaman ${i} dari ${totalPages}`;
+                    await renderPageThumbnail(i);
+                }
+
+            } catch (error) {
+                console.error("Gagal memuat PDF:", error);
+                alert('Gagal memuat file PDF. Dokumen mungkin rusak atau terkunci sandi.');
+                clearAll(false);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        async function renderPageThumbnail(pageNum) {
+            const page = await currentPdf.getPage(pageNum);
+            const viewport = page.getViewport({ scale: 0.5 }); 
+            
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            
+            await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+            const thumbnailUrl = canvas.toDataURL('image/jpeg', 0.8);
+
+            const div = document.createElement('div');
+            div.className = 'page-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative group flex flex-col transition-all';
+            div.dataset.page = pageNum;
+            
+            div.innerHTML = `
+                <div class="relative w-full aspect-[1/1.4] bg-gray-100 overflow-hidden flex items-center justify-center">
+                    <img src="${thumbnailUrl}" class="max-w-full max-h-full shadow" alt="Halaman ${pageNum}">
+                    
+                    <div class="absolute inset-0 bg-red-500 bg-opacity-80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer" onclick="toggleExcludePage(${pageNum})">
+                        <div class="text-white text-center">
+                            <i class="fa-solid fa-trash-can text-2xl mb-1"></i>
+                            <p class="text-xs font-semibold">Buang Halaman</p>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute inset-0 bg-gray-900 bg-opacity-70 flex flex-col items-center justify-center hidden exclude-overlay cursor-pointer" onclick="toggleExcludePage(${pageNum})">
+                        <i class="fa-solid fa-ban text-red-500 text-3xl mb-2"></i>
+                        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">Dikecualikan</span>
+                    </div>
+
+                    <div class="absolute top-2 left-2 bg-black bg-opacity-60 text-white text-xs font-bold w-7 h-7 rounded flex items-center justify-center">
+                        ${pageNum}
+                    </div>
+                </div>
+            `;
+            
+            imageGrid.appendChild(div);
+        }
+
+        function toggleExcludePage(pageNum) {
+            const cardElement = document.querySelector(`.page-card[data-page="${pageNum}"]`);
+            if (!cardElement) return;
+
+            const overlay = cardElement.querySelector('.exclude-overlay');
+            if (excludedPages.has(pageNum)) {
+                excludedPages.delete(pageNum);
+                overlay.classList.add('hidden');
+                cardElement.style.opacity = '1';
+            } else {
+                excludedPages.add(pageNum);
+                overlay.classList.remove('hidden');
+                cardElement.style.opacity = '0.6';
+            }
+            
+            const sisa = currentPdf.numPages - excludedPages.size;
+            pageCount.textContent = sisa;
+            btnGenerate.disabled = sisa === 0;
+        }
+
+        function clearAll(askConfirm = true) {
+            if(askConfirm && !confirm("Yakin ingin menghapus PDF dan memulai dari awal?")) return;
+            
+            currentPdf = null;
+            excludedPages.clear();
+            imageGrid.innerHTML = '';
+            
+            emptyState.classList.remove('hidden');
+            gridHeader.classList.add('hidden');
+            btnGenerate.disabled = true;
+            fileNameDisplay.textContent = "Maksimal 1 file PDF per pemrosesan";
+            outputFileName.value = "KlixFiles-Images";
+        }
+
+        async function extractToImages() {
+            if (!currentPdf) return;
+
+            const format = document.getElementById('setFormat').value; 
+            const scale = parseFloat(document.getElementById('setResolution').value); 
+            let zipName = document.getElementById('outputFileName').value.trim();
+            if(!zipName) zipName = "KlixFiles-Images";
+
+            showLoading("Mengekstrak Foto...", "Memproses halaman resolusi tinggi");
+            
+            try {
+                const zip = new JSZip();
+                const total = currentPdf.numPages;
+                const extension = format === 'jpeg' ? 'jpg' : 'png';
+                const mimeType = `image/${format}`;
+                let processedCount = 0;
+                
+                const padLen = total.toString().length;
+
+                for (let i = 1; i <= total; i++) {
+                    if (excludedPages.has(i)) continue; 
+
+                    processedCount++;
+                    loadingProgress.textContent = `Mengekstrak halaman ${i} dari ${total}`;
+                    
+                    const page = await currentPdf.getPage(i);
+                    const viewport = page.getViewport({ scale: scale });
+                    
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    
+                    if(format === 'jpeg'){
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    }
+                    
+                    await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+                    
+                    const blob = await new Promise(resolve => canvas.toBlob(resolve, mimeType, 0.95));
+                    const fileName = `Halaman_${i.toString().padStart(padLen, '0')}.${extension}`;
+                    
+                    zip.file(fileName, blob);
+                    
+                    canvas.width = 0; 
+                    canvas.height = 0;
+                }
+
+                loadingText.textContent = "Mengemas ZIP...";
+                loadingProgress.textContent = "Sedikit lagi selesai!";
+                await new Promise(r => setTimeout(r, 100)); 
+                
+                const zipContent = await zip.generateAsync({ type: "blob" });
+                saveAs(zipContent, `${zipName}.zip`);
+
+            } catch (error) {
+                console.error("Gagal mengekstrak PDF:", error);
+                alert("Terjadi kesalahan saat memproses gambar.");
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function showLoading(title, text) {
+            loadingText.textContent = title;
+            loadingProgress.textContent = text;
+            loadingOverlay.classList.remove('hidden');
+            loadingOverlay.classList.add('flex');
+        }
+
+        function hideLoading() {
+            loadingOverlay.classList.add('hidden');
+            loadingOverlay.classList.remove('flex');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const manifestData = {
+                name: "KlixFiles",
+                short_name: "KlixFiles",
+                description: "Ekstrak halaman PDF menjadi gambar (JPG/PNG) secara offline.",
+                start_url: "./",
+                display: "standalone",
+                background_color: "#ffffff",
+                theme_color: "#ef4444",
+                icons: [{
+                    src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iI2VmNDQ0NCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjAwIiBmaWxsPSJ3aGl0ZSI+UERGPC90ZXh0Pjwvc3ZnPg==",
+                    sizes: "512x512",
+                    type: "image/svg+xml"
+                }]
+            };
+            const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+            document.getElementById('manifest-link').href = URL.createObjectURL(manifestBlob);
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW Gagal:', err));
+            }
+        });
+    </script>
+    
+    <script type='text/javascript' src='https://edge-cdn.trakteer.id/js/trbtn-overlay.min.js?v=14-05-2025'></script>
+    <script type='text/javascript' class='troverlay'>(function() {var trbtnId = trbtnOverlay.init('Bantu Operasional Web','#EF4444','https://trakteer.id/v1/mawramadhan/tip/embed/modal','https://edge-cdn.trakteer.id/images/embed/trbtn-icon.png?v=14-05-2025','40','floating-left');trbtnOverlay.draw(trbtnId);})();</script>
+</body>
+</html>
