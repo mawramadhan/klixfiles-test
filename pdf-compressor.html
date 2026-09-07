@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Kompres PDF Gratis & Aman (Offline) - KlixFiles</title>
+    <meta name="description" content="Kecilkan ukuran file PDF Anda hingga 90% secara gratis tanpa upload ke server. Proses 100% aman dan berjalan offline di perangkat Anda.">
+    <meta name="keywords" content="kompres pdf, kecilkan pdf, kurangi ukuran pdf, compress pdf offline, klixfiles, alat pdf aman">
+    <meta name="author" content="KlixFiles">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kompres PDF dengan Aman - KlixFiles">
+    <meta property="og:description" content="Kecilkan ukuran PDF secara instan tanpa upload ke server. Privasi 100% terjaga!">
+    <meta property="og:site_name" content="KlixFiles">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kompres PDF dengan Aman - KlixFiles">
+    <meta name="twitter:description" content="Kecilkan ukuran PDF tanpa upload ke server. Cepat, aman, dan bisa offline.">
+
+    <link rel="shortcut icon" href="icon/klixpdf.svg" type="image/x-icon">
+    
+    <!-- PWA Manifest via Data URI -->
+    <link rel="manifest" id="manifest-link">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Library untuk membaca dan membuat PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- SETELAN TEMA KONTEKSTUAL (MERAH UNTUK PDF) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 
+                        primary: '#ef4444', 
+                        secondary: '#10b981' 
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-2 flex-shrink-0 group">
+                <img src="icon/klixpdf.svg" alt="Logo KlixFiles" class="h-8 w-8 object-contain transition-transform group-hover:scale-105">
+                <h1 class="font-bold text-xl tracking-tight text-gray-900">Klix<span class="text-primary">Files</span></h1>
+            </a>
+
+            <!-- Sisi Kanan Header -->
+            <div class="flex items-center gap-3 sm:gap-4">
+                <div class="hidden md:flex items-center gap-2 text-xs text-secondary bg-green-50 px-3 py-1.5 rounded-full border border-green-100">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>100% Offline & Aman</span>
+                </div>
+
+                <!-- Dropdown Menu "Semua Alat" -->
+                <div class="relative">
+                    <button id="btnMegaMenu" class="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 font-medium py-2 px-3 sm:px-4 rounded-lg transition-colors text-sm sm:text-base">
+                        <span><i class="fa-solid fa-layer-group text-primary mr-1 hidden sm:inline"></i> Alat</span>
+                        <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200" id="megaMenuIcon"></i>
+                    </button>
+
+                    <!-- Isi Dropdown -->
+                    <div id="megaMenuContent" class="hidden absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 transform origin-top-right transition-all max-h-[70vh] overflow-y-auto overflow-x-hidden">
+                        <div class="p-2">
+                            <!-- Kategori PDF -->
+                            <div class="mb-1">
+                                <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-2">Alat PDF</div>
+                                
+                                <a href="index.html" class="flex items-center px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                    <div class="w-6 text-center mr-2"><i class="fa-regular fa-images"></i></div>
+                                    <span>Foto ke PDF</span>
+                                </a>
+                                
+                                <a href="pdf-to-img.html" class="flex items-center px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                    <div class="w-6 text-center mr-2"><i class="fa-solid fa-file-pdf"></i></div>
+                                    <span>PDF ke Foto</span>
+                                </a>
+
+                                <!-- State Aktif (Merah) -->
+                                <a href="compress-pdf.html" class="flex items-center px-3 py-2.5 rounded-lg bg-red-50 text-red-700 font-medium">
+                                    <div class="w-6 text-center mr-2"><i class="fa-solid fa-file-arrow-down"></i></div>
+                                    <span>Kompres PDF</span>
+                                </a>
+                            </div>
+                            <!-- Kategori Lain (Placeholder) -->
+                            <div class="border-t border-gray-100 pt-1 mt-1">
+                                <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-2">Alat Gambar</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
+        
+        <!-- Area Kiri -->
+        <div class="flex-grow flex flex-col gap-4">
+            
+            <div class="mb-2">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Kompres <span class="text-primary">PDF</span></h1>
+                <p class="text-sm text-gray-500 mt-1 sm:mt-2">Kecilkan ukuran file PDF Anda. Sangat optimal untuk PDF hasil scan dokumen atau yang berisi banyak gambar.</p>
+            </div>
+
+            <div class="md:hidden flex items-center gap-2 text-xs text-secondary bg-green-50 px-3 py-2 rounded-lg border border-green-100 mb-2">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Privasi Terjamin: 100% diproses di HP Anda.</span>
+            </div>
+
+            <!-- Dropzone -->
+            <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-xl bg-white p-8 text-center cursor-pointer hover:bg-gray-50 hover:border-primary transition-colors flex flex-col items-center justify-center min-h-[200px]">
+                <input type="file" id="fileInput" accept="application/pdf" class="hidden">
+                <i class="fa-solid fa-file-zipper text-5xl text-gray-400 mb-4 group-hover:text-primary transition-colors"></i>
+                <h3 class="text-lg font-semibold text-gray-700">Pilih File PDF atau Drag & Drop</h3>
+                <p class="text-sm text-gray-500 mt-1">Maksimal 1 file PDF per pemrosesan</p>
+                <button class="mt-4 bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-red-600 shadow-sm transition-colors" onclick="document.getElementById('fileInput').click()">
+                    Pilih Dokumen PDF
+                </button>
+            </div>
+
+            <!-- Area Info File Terpilih -->
+            <div id="fileInfoArea" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <div class="bg-red-100 text-primary w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-file-pdf text-xl"></i>
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 id="fileName" class="font-semibold text-gray-800 truncate">dokumen.pdf</h4>
+                        <p id="fileSize" class="text-sm text-gray-500">Ukuran asli: 0 MB</p>
+                    </div>
+                </div>
+                <button onclick="clearFile()" class="text-gray-400 hover:text-red-500 w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Area Hasil Kompresi -->
+            <div id="resultArea" class="hidden bg-green-50 rounded-xl border border-green-200 p-5 mt-2">
+                <h3 class="font-bold text-green-800 mb-3 flex items-center"><i class="fa-solid fa-circle-check mr-2"></i>Kompresi Berhasil!</h3>
+                <div class="flex justify-between items-center bg-white rounded-lg p-4 shadow-sm border border-green-100">
+                    <div class="text-center">
+                        <p class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Ukuran Asli</p>
+                        <p id="resOriginalSize" class="text-lg font-bold text-gray-800 line-through decoration-red-500 decoration-2">0 MB</p>
+                    </div>
+                    <div class="text-center px-4">
+                        <i class="fa-solid fa-arrow-right-long text-green-500 text-xl"></i>
+                        <p id="resPercentage" class="text-xs font-bold text-green-600 bg-green-100 px-2 py-0.5 rounded-full mt-1">-0%</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Ukuran Baru</p>
+                        <p id="resNewSize" class="text-2xl font-extrabold text-green-600">0 MB</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Area Kanan -->
+        <div class="w-full lg:w-80 flex-shrink-0">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 sticky top-24">
+                <h2 class="font-semibold text-lg text-gray-800 border-b pb-3 mb-4"><i class="fa-solid fa-compress mr-2 text-gray-500"></i>Tingkat Kompresi</h2>
+                
+                <div class="space-y-3">
+                    <!-- Opsi Kompresi Ekstrem -->
+                    <label class="block cursor-pointer relative">
+                        <input type="radio" name="compressLevel" value="extreme" class="peer sr-only">
+                        <div class="p-4 rounded-lg border-2 border-gray-200 hover:border-red-200 peer-checked:border-primary peer-checked:bg-red-50 transition-all">
+                            <div class="flex justify-between items-center mb-1">
+                                <h3 class="font-bold text-gray-800">Ekstrem</h3>
+                                <i class="fa-solid fa-circle-check text-primary opacity-0 peer-checked:opacity-100"></i>
+                            </div>
+                            <p class="text-xs text-gray-500">Ukuran file terkecil, namun kualitas teks/gambar akan sedikit menurun.</p>
+                        </div>
+                    </label>
+
+                    <!-- Opsi Kompresi Standar -->
+                    <label class="block cursor-pointer relative">
+                        <input type="radio" name="compressLevel" value="standard" class="peer sr-only" checked>
+                        <div class="p-4 rounded-lg border-2 border-gray-200 hover:border-red-200 peer-checked:border-primary peer-checked:bg-red-50 transition-all">
+                            <div class="flex justify-between items-center mb-1">
+                                <h3 class="font-bold text-gray-800">Standar <span class="ml-1 bg-green-100 text-green-700 text-[10px] px-2 py-0.5 rounded-full">Rekomendasi</span></h3>
+                                <i class="fa-solid fa-circle-check text-primary opacity-0 peer-checked:opacity-100"></i>
+                            </div>
+                            <p class="text-xs text-gray-500">Kompromi terbaik antara ukuran file kecil dan kualitas gambar terjaga.</p>
+                        </div>
+                    </label>
+
+                    <!-- Opsi Kompresi Ringan -->
+                    <label class="block cursor-pointer relative">
+                        <input type="radio" name="compressLevel" value="light" class="peer sr-only">
+                        <div class="p-4 rounded-lg border-2 border-gray-200 hover:border-red-200 peer-checked:border-primary peer-checked:bg-red-50 transition-all">
+                            <div class="flex justify-between items-center mb-1">
+                                <h3 class="font-bold text-gray-800">Ringan</h3>
+                                <i class="fa-solid fa-circle-check text-primary opacity-0 peer-checked:opacity-100"></i>
+                            </div>
+                            <p class="text-xs text-gray-500">Resolusi tetap tinggi. Pengurangan ukuran file tidak terlalu signifikan.</p>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="mt-6 pt-4 border-t">
+                    <button id="btnGenerate" onclick="processCompression()" class="w-full bg-secondary text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled>
+                        <i class="fa-solid fa-minimize"></i> Mulai Kompres
+                    </button>
+                    <p class="text-[11px] text-gray-400 text-center mt-3 leading-tight"><i class="fa-solid fa-circle-info mr-1"></i>Alat ini mengoptimalkan PDF dengan menjadikan halamannya gambar terkompresi.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-white bg-opacity-95 z-50 hidden flex-col items-center justify-center p-4">
+        <div class="w-16 h-16 border-4 border-gray-200 border-t-primary rounded-full animate-spin mb-4"></div>
+        <h2 class="text-xl font-bold text-gray-800 mb-2" id="loadingText">Mengompresi PDF...</h2>
+        
+        <!-- Progress Bar -->
+        <div class="w-full max-w-xs bg-gray-200 rounded-full h-2.5 mb-2 mt-4">
+            <div id="progressBar" class="bg-primary h-2.5 rounded-full" style="width: 0%"></div>
+        </div>
+        
+        <p id="loadingProgress" class="text-gray-500 font-medium">Memproses 0 dari 0 halaman</p>
+        <p class="text-xs text-gray-400 mt-6 max-w-xs text-center">Tunggu sebentar, semuanya diproses langsung di RAM perangkat Anda tanpa dikirim ke server.</p>
+    </div>
+
+    <script>
+        // Dropdown Menu Logic (Dipertahankan agar sama dengan yang lain)
+        const btnMegaMenu = document.getElementById('btnMegaMenu');
+        const megaMenuContent = document.getElementById('megaMenuContent');
+        const megaMenuIcon = document.getElementById('megaMenuIcon');
+
+        btnMegaMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            megaMenuContent.classList.toggle('hidden');
+            megaMenuIcon.classList.toggle('rotate-180');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!megaMenuContent.contains(e.target) && !btnMegaMenu.contains(e.target)) {
+                megaMenuContent.classList.add('hidden');
+                megaMenuIcon.classList.remove('rotate-180');
+            }
+        });
+
+        // State Management
+        let currentFile = null;
+        let originalFileName = "";
+        let originalSizeInBytes = 0;
+
+        // DOM Elements
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfoArea = document.getElementById('fileInfoArea');
+        const fileNameEl = document.getElementById('fileName');
+        const fileSizeEl = document.getElementById('fileSize');
+        const btnGenerate = document.getElementById('btnGenerate');
+        const resultArea = document.getElementById('resultArea');
+        
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loadingText = document.getElementById('loadingText');
+        const loadingProgress = document.getElementById('loadingProgress');
+        const progressBar = document.getElementById('progressBar');
+
+        // Drag & Drop Events
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('border-primary', 'bg-red-50');
+        });
+        
+        dropzone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('border-primary', 'bg-red-50');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('border-primary', 'bg-red-50');
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+            fileInput.value = ''; // reset
+        });
+
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        function handleFile(file) {
+            if (file.type !== 'application/pdf') {
+                alert('Tolong masukkan file bereksistensi PDF.');
+                return;
+            }
+
+            currentFile = file;
+            originalFileName = file.name;
+            originalSizeInBytes = file.size;
+
+            fileNameEl.textContent = originalFileName;
+            fileSizeEl.textContent = `Ukuran asli: ${formatBytes(originalSizeInBytes)}`;
+            
+            dropzone.classList.add('hidden');
+            fileInfoArea.classList.remove('hidden');
+            fileInfoArea.classList.add('flex');
+            resultArea.classList.add('hidden');
+            
+            btnGenerate.disabled = false;
+        }
+
+        function clearFile() {
+            currentFile = null;
+            dropzone.classList.remove('hidden');
+            dropzone.classList.add('flex');
+            fileInfoArea.classList.add('hidden');
+            fileInfoArea.classList.remove('flex');
+            resultArea.classList.add('hidden');
+            btnGenerate.disabled = true;
+        }
+
+        async function processCompression() {
+            if (!currentFile) return;
+
+            const level = document.querySelector('input[name="compressLevel"]:checked').value;
+            
+            // Konfigurasi Scale & Quality berdasarkan level
+            let scale, jpegQuality;
+            switch(level) {
+                case 'extreme': scale = 1.0; jpegQuality = 0.50; break;
+                case 'standard': scale = 1.5; jpegQuality = 0.75; break;
+                case 'light': scale = 2.0; jpegQuality = 0.90; break;
+                default: scale = 1.5; jpegQuality = 0.75;
+            }
+
+            loadingOverlay.classList.remove('hidden');
+            loadingOverlay.classList.add('flex');
+            progressBar.style.width = '0%';
+            loadingText.textContent = "Menganalisa Dokumen...";
+            loadingProgress.textContent = "Memulai...";
+
+            try {
+                const arrayBuffer = await currentFile.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+                const totalPages = pdf.numPages;
+                
+                const { jsPDF } = window.jspdf;
+                let doc = null;
+
+                for (let i = 1; i <= totalPages; i++) {
+                    const percent = Math.round(((i - 1) / totalPages) * 100);
+                    progressBar.style.width = `${percent}%`;
+                    loadingText.textContent = `Mengompresi Halaman ${i}`;
+                    loadingProgress.textContent = `${i} dari ${totalPages} halaman selesai`;
+
+                    const page = await pdf.getPage(i);
+                    
+                    // Render ke Canvas
+                    const viewport = page.getViewport({ scale: scale });
+                    const canvas = document.createElement('canvas');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Latar belakang putih (mencegah transparansi jadi hitam)
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+                    // Dapatkan gambar kompresi
+                    const imgData = canvas.toDataURL('image/jpeg', jpegQuality);
+
+                    // Hitung dimensi PDF berdasarkan ukuran asli (unscaled)
+                    const unscaledViewport = page.getViewport({ scale: 1.0 });
+                    const wMM = (unscaledViewport.width * 25.4) / 72; // Konversi pt ke mm
+                    const hMM = (unscaledViewport.height * 25.4) / 72;
+                    const orientation = wMM > hMM ? 'l' : 'p';
+
+                    if (doc === null) {
+                        doc = new jsPDF({ orientation: orientation, unit: 'mm', format: [wMM, hMM] });
+                    } else {
+                        doc.addPage([wMM, hMM], orientation);
+                    }
+
+                    doc.addImage(imgData, 'JPEG', 0, 0, wMM, hMM);
+                    
+                    // Bersihkan memory
+                    canvas.width = 0;
+                    canvas.height = 0;
+                }
+
+                progressBar.style.width = '100%';
+                loadingText.textContent = "Menyelesaikan File...";
+                loadingProgress.textContent = "Tunggu sebentar...";
+                
+                // Jeda sebentar agar UI render 100% progress
+                await new Promise(r => setTimeout(r, 200));
+
+                // Dapatkan output sebagai Blob agar kita bisa tahu ukurannya
+                const outBlob = doc.output('blob');
+                const newSizeInBytes = outBlob.size;
+
+                // Tampilkan hasil di UI
+                document.getElementById('resOriginalSize').textContent = formatBytes(originalSizeInBytes);
+                document.getElementById('resNewSize').textContent = formatBytes(newSizeInBytes);
+                
+                let percentReduction = 0;
+                if(newSizeInBytes < originalSizeInBytes) {
+                    percentReduction = Math.round(((originalSizeInBytes - newSizeInBytes) / originalSizeInBytes) * 100);
+                    document.getElementById('resPercentage').textContent = `-${percentReduction}%`;
+                    document.getElementById('resPercentage').className = "text-xs font-bold text-green-600 bg-green-100 px-2 py-0.5 rounded-full mt-1";
+                } else {
+                    document.getElementById('resPercentage').textContent = `+${Math.round(((newSizeInBytes - originalSizeInBytes) / originalSizeInBytes) * 100)}%`;
+                    document.getElementById('resPercentage').className = "text-xs font-bold text-red-600 bg-red-100 px-2 py-0.5 rounded-full mt-1";
+                    // Terkadang file kecil yang dikompres jadi bengkak karena jadi gambar
+                }
+
+                resultArea.classList.remove('hidden');
+
+                // Trigger Download
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(outBlob);
+                link.download = originalFileName.replace('.pdf', '') + '-compressed.pdf';
+                link.click();
+                
+                // Cleanup
+                setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+
+            } catch (error) {
+                console.error("Gagal mengompresi:", error);
+                alert("Terjadi kesalahan saat memproses dokumen. Pastikan file PDF tidak dikunci password.");
+            } finally {
+                loadingOverlay.classList.add('hidden');
+                loadingOverlay.classList.remove('flex');
+            }
+        }
+
+        // PWA Manifest (sama seperti sebelumnya)
+        document.addEventListener('DOMContentLoaded', () => {
+            const manifestData = {
+                name: "KlixFiles",
+                short_name: "KlixFiles",
+                description: "Kompres PDF secara offline dan aman.",
+                start_url: "./",
+                display: "standalone",
+                background_color: "#ffffff",
+                theme_color: "#ef4444",
+                icons: [{
+                    src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iI2VmNDQ0NCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjAwIiBmaWxsPSJ3aGl0ZSI+UERGPC90ZXh0Pjwvc3ZnPg==",
+                    sizes: "512x512",
+                    type: "image/svg+xml"
+                }]
+            };
+            const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+            document.getElementById('manifest-link').href = URL.createObjectURL(manifestBlob);
+        });
+    </script>
+</body>
+</html>
