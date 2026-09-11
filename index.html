@@ -10,7 +10,7 @@
     <meta name="author" content="KlixFiles">
     <meta name="robots" content="index, follow">
 
-    <!-- Open Graph (Untuk share di WhatsApp, Facebook, dll) -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Ubah Foto ke PDF dengan Aman - KlixFiles">
     <meta property="og:description" content="Gabungkan foto menjadi PDF dengan mudah. File tidak pernah diunggah ke server, privasi 100% terjaga!">
@@ -21,9 +21,9 @@
     <meta name="twitter:title" content="Ubah Foto ke PDF dengan Aman - KlixFiles">
     <meta name="twitter:description" content="Gabungkan foto menjadi PDF tanpa upload ke server. Cepat, aman, dan bisa offline.">
 
+    <!-- Standar Favicon -->
     <link rel="shortcut icon" href="icon/klixpdf-favicon.svg" type="image/x-icon">
     
-    <!-- PWA Manifest via Data URI -->
     <link rel="manifest" id="manifest-link">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,14 +33,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-    <!-- SETELAN TEMA KONTEKSTUAL (MERAH UNTUK PDF) -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: { 
-                        primary: '#ef4444', /* Merah Tailwind untuk Kategori PDF */
-                        secondary: '#10b981' /* Hijau untuk tombol eksekusi akhir */
+                        primary: '#ef4444', 
+                        secondary: '#10b981' 
                     }
                 }
             }
@@ -64,6 +63,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
 
+    <!-- HEADER STANDAR TERKUNCI -->
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <!-- Logo -->
@@ -86,31 +86,95 @@
                         <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200" id="megaMenuIcon"></i>
                     </button>
 
-                    <!-- Isi Dropdown (Highlight Merah untuk yang aktif) -->
-                    <div id="megaMenuContent" class="hidden absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 transform origin-top-right transition-all max-h-[70vh] overflow-y-auto overflow-x-hidden">
-                        <div class="p-2">
-                            <!-- Kategori PDF -->
-                            <div class="mb-1">
-                                <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-2">Alat PDF</div>
-                                
-                                <!-- State Aktif (Merah) -->
-                                <a href="index.html" class="flex items-center px-3 py-2.5 rounded-lg bg-red-50 text-red-700 font-medium">
-                                    <div class="w-6 text-center mr-2"><i class="fa-solid fa-images"></i></div>
-                                    <span>Foto ke PDF</span>
-                                </a>
-                                
-                                <a href="pdf-to-img.html" class="flex items-center px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
-                                    <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-pdf"></i></div>
-                                    <span>PDF ke Foto</span>
-                                </a>
-                                <a href="#" class="flex items-center px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
-                                    <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-zipper"></i></div>
-                                    <span>Kompres PDF <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded-full ml-1">Segera</span></span>
-                                </a>
+                    <!-- MEGA MENU DROPDOWN -->
+                    <div id="megaMenuContent" class="hidden absolute top-full right-0 mt-2 w-72 sm:w-[500px] bg-white rounded-xl shadow-xl border border-gray-100 transform origin-top-right transition-all max-h-[80vh] overflow-y-auto overflow-x-hidden">
+                        <div class="p-4">
+                            <!-- Kategori: Alat PDF (Single Group) -->
+                            <div class="mb-2">
+                                <div class="flex items-center px-3 py-2 mb-1">
+                                    <div class="w-1 h-3.5 bg-primary rounded-full mr-2"></div>
+                                    <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Alat PDF</div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
+                                    
+                                    <!-- 1. Foto ke PDF (AKTIF) -->
+                                    <a href="index.html" class="flex items-center px-3 py-2 rounded-lg bg-red-50 text-primary transition-colors">
+                                        <div class="w-6 text-center mr-2"><i class="fa-solid fa-images text-lg"></i></div>
+                                        <div class="flex items-center justify-between w-full">
+                                            <span class="text-sm font-medium">Foto ke PDF</span>
+                                        </div>
+                                    </a>
+                                    
+                                    <!-- 2. PDF ke Foto -->
+                                    <a href="pdf-to-img.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                                        <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-pdf text-lg"></i></div>
+                                        <div class="flex items-center justify-between w-full">
+                                            <span class="text-sm font-medium">PDF ke Foto</span>
+                                        </div>
+                                    </a>
+                                    
+                                    <!-- 3. Gabung PDF -->
+                                    <a href="merge-pdf.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                                        <div class="w-6 text-center mr-2"><i class="fa-regular fa-object-group text-lg"></i></div>
+                                        <div class="flex items-center justify-between w-full">
+                                            <span class="text-sm font-medium">Gabung PDF</span>
+                                        </div>
+                                    </a>
+
+                                    <!-- 4. Kompres PDF -->
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed">
+                                        <div class="flex items-center">
+                                            <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-zipper text-lg"></i></div>
+                                            <span class="text-sm font-medium">Kompres PDF</span>
+                                        </div>
+                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
+                                    </a>
+
+                                    <!-- 5. Pisah PDF -->
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed">
+                                        <div class="flex items-center">
+                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-scissors text-lg"></i></div>
+                                            <span class="text-sm font-medium">Pisah PDF</span>
+                                        </div>
+                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
+                                    </a>
+
+                                    <!-- 6. Kunci PDF -->
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed">
+                                        <div class="flex items-center">
+                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-lock text-lg"></i></div>
+                                            <span class="text-sm font-medium">Kunci PDF</span>
+                                        </div>
+                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
+                                    </a>
+
+                                    <!-- 7. Hapus Kunci PDF -->
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed">
+                                        <div class="flex items-center">
+                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-unlock text-lg"></i></div>
+                                            <span class="text-sm font-medium">Hapus Kunci PDF</span>
+                                        </div>
+                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
+                                    </a>
+
+                                    <!-- 8. Nomor Halaman -->
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed">
+                                        <div class="flex items-center">
+                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-list-ol text-lg"></i></div>
+                                            <span class="text-sm font-medium">Nomor Halaman</span>
+                                        </div>
+                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
+                                    </a>
+                                </div>
                             </div>
-                            <!-- Kategori Lain (Placeholder) -->
-                            <div class="border-t border-gray-100 pt-1 mt-1">
-                                <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-2">Alat Gambar</div>
+                            
+                            <hr class="border-gray-100 my-2">
+
+                            <!-- Placeholder Kategori Masa Depan -->
+                            <div class="bg-gray-50 rounded-xl p-3 border border-gray-100 text-center">
+                                <i class="fa-solid fa-rocket text-gray-300 text-xl mb-1"></i>
+                                <h4 class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">Lebih Banyak Alat</h4>
+                                <p class="text-[11px] text-gray-400">Konverter Gambar dan Alat Teks segera hadir.</p>
                             </div>
                         </div>
                     </div>
@@ -134,10 +198,10 @@
                 <span>Web 100% Offline dan Aman. Data Tidak Dikirim ke Server.</span>
             </div>
 
-            <!-- Dropzone -->
-            <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-xl bg-white p-8 text-center cursor-pointer hover:bg-gray-50 hover:border-primary transition-colors flex flex-col items-center justify-center min-h-[160px]">
+            <!-- Dropzone (Standar Hover & Icon Color) -->
+            <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-xl bg-white p-8 text-center cursor-pointer hover:bg-gray-50 hover:border-primary transition-colors flex flex-col items-center justify-center min-h-[160px] group">
                 <input type="file" id="fileInput" multiple accept="image/jpeg, image/png, image/webp" class="hidden">
-                <i class="fa-solid fa-images text-4xl text-gray-400 mb-3"></i>
+                <i class="fa-solid fa-images text-4xl text-gray-400 mb-3 group-hover:text-primary transition-colors"></i>
                 <h3 class="text-lg font-semibold text-gray-700">Pilih Foto atau Drag & Drop</h3>
                 <p class="text-sm text-gray-500 mt-1">Mendukung JPG, PNG, dan WebP</p>
                 <button class="mt-4 bg-primary text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-red-600 shadow-sm transition-colors" onclick="document.getElementById('fileInput').click()">
@@ -230,6 +294,37 @@
         </div>
     </main>
 
+    <!-- Footer Area (Standar) -->
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+                
+                <!-- Copyright -->
+                <div class="flex items-center justify-center gap-2 text-sm text-gray-500 order-2 sm:order-1">
+                    <i class="fa-solid fa-shield-halved text-gray-400"></i>
+                    <p>&copy; 2026 KlixFiles. <span class="hidden sm:inline">100% Offline & Aman.</span></p>
+                </div>
+                
+                <!-- Actions -->
+                <div class="flex items-center justify-center gap-3 sm:gap-4 order-1 sm:order-2 w-full sm:w-auto">
+                    <!-- Kotak Saran (Border hilang saat hover) -->
+                    <a href="https://forms.gle/LINK_FORM_KAMU_DISINI" target="_blank" rel="noopener noreferrer" 
+                       class="group flex items-center justify-center gap-2 text-sm font-semibold text-gray-700 bg-gray-50 hover:bg-red-50 hover:text-primary hover:border-red-50 border border-gray-200 px-4 h-[40px] rounded-lg transition-colors" title="Beri masukan">
+                        <i class="fa-regular fa-comment-dots text-lg text-gray-400 group-hover:text-primary transition-colors"></i>
+                        <span class="sm:hidden">Saran</span>
+                        <span class="hidden sm:inline">Kotak Saran</span>
+                    </a>
+                    
+                    <!-- Tombol Trakteer Inline -->
+                    <div class="flex items-center h-[40px]">
+                        <script type='text/javascript' src='https://edge-cdn.trakteer.id/js/embed/trbtn.min.js?v=14-05-2025'></script><script type='text/javascript'>(function(){var trbtnId=trbtn.init('Bantu Operasional Web','#EF4444','https://trakteer.id/mawramadhan','https://edge-cdn.trakteer.id/images/embed/trbtn-icon.png?v=14-05-2025','40');trbtn.draw(trbtnId);})();</script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Editor -->
     <div id="cropperModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col">
             <div class="p-4 border-b flex justify-between items-center bg-gray-50">
@@ -255,11 +350,12 @@
         </div>
     </div>
 
+    <!-- Loading Overlay -->
     <div id="loadingOverlay" class="fixed inset-0 bg-white bg-opacity-90 z-50 hidden flex-col items-center justify-center">
         <div class="w-16 h-16 border-4 border-gray-200 border-t-primary rounded-full animate-spin mb-4"></div>
         <h2 class="text-xl font-bold text-gray-800 mb-2">Membuat PDF...</h2>
         <p id="loadingProgress" class="text-gray-500 font-medium">Memproses 0 dari 0 foto</p>
-        <p class="text-xs text-gray-400 mt-4 max-w-xs text-center">Mohon jangan tutup halaman ini. Pemrosesan dilakukan sepenuhnya di perangkat Anda.</p>
+        <p class="text-xs text-gray-400 mt-4 max-w-xs text-center">Mohon jangan tutup halaman ini.</p>
     </div>
 
     <script>
@@ -298,20 +394,20 @@
         const orientationWrapper = document.getElementById('orientationWrapper');
         const marginWrapper = document.getElementById('marginWrapper');
 
-        // Drag & Drop (Hover effect now uses bg-red-50 to match theme)
+        // Drag & Drop
         dropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
-            dropzone.classList.add('border-primary', 'bg-red-50');
+            dropzone.classList.add('border-primary', 'bg-gray-50');
         });
         
         dropzone.addEventListener('dragleave', (e) => {
             e.preventDefault();
-            dropzone.classList.remove('border-primary', 'bg-red-50');
+            dropzone.classList.remove('border-primary', 'bg-gray-50');
         });
 
         dropzone.addEventListener('drop', (e) => {
             e.preventDefault();
-            dropzone.classList.remove('border-primary', 'bg-red-50');
+            dropzone.classList.remove('border-primary', 'bg-gray-50');
             handleFiles(e.dataTransfer.files);
         });
 
@@ -381,7 +477,8 @@
             div.innerHTML = `
                 <div class="relative w-full aspect-square bg-gray-100 overflow-hidden">
                     <img src="${url}" class="w-full h-full object-cover" alt="thumbnail">
-                    <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                    <!-- PERBAIKAN: Tambahkan pointer-events-none secara default, dan pointer-events-auto saat group-hover -->
+                    <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 pointer-events-none group-hover:pointer-events-auto">
                         <button onclick="openEditor('${id}', event)" class="bg-white text-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors" title="Edit">
                             <i class="fa-solid fa-crop-simple"></i>
                         </button>
@@ -684,24 +781,6 @@
         }
         
         document.addEventListener('DOMContentLoaded', () => {
-            const manifestData = {
-                name: "KlixFiles",
-                short_name: "KlixFiles",
-                description: "Ubah foto menjadi PDF secara offline dan aman.",
-                start_url: "./",
-                display: "standalone",
-                background_color: "#ffffff",
-                theme_color: "#ef4444", // Ubah warna tema ke merah
-                icons: [{
-                    src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iI2VmNDQ0NCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjAwIiBmaWxsPSJ3aGl0ZSI+UERGPC90ZXh0Pjwvc3ZnPg==", // Ikon PWA diubah menjadi merah (ef4444)
-                    sizes: "512x512",
-                    type: "image/svg+xml"
-                }]
-            };
-            const manifestString = JSON.stringify(manifestData);
-            const manifestBlob = new Blob([manifestString], {type: 'application/json'});
-            document.getElementById('manifest-link').href = URL.createObjectURL(manifestBlob);
-
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
                     navigator.serviceWorker.register('./sw.js').catch((err) => {
@@ -711,7 +790,5 @@
             }
         });
     </script>
-    <script type='text/javascript' src='https://edge-cdn.trakteer.id/js/trbtn-overlay.min.js?v=14-05-2025'></script>
-    <script type='text/javascript' class='troverlay'>(function() {var trbtnId = trbtnOverlay.init('Bantu Operasional Web','#EF4444','https://trakteer.id/v1/mawramadhan/tip/embed/modal','https://edge-cdn.trakteer.id/images/embed/trbtn-icon.png?v=14-05-2025','32','floating-left');trbtnOverlay.draw(trbtnId);})();</script>
 </body>
 </html>
