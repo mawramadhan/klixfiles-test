@@ -9,10 +9,8 @@
     <meta name="keywords" content="gabung pdf, merge pdf, satukan pdf, pdf joiner offline, klixfiles, alat pdf aman">
     <meta name="author" content="KlixFiles">
 
-    <!-- Sesuai permintaan: Favicon baru -->
+    <!-- Standar Favicon & Manifest -->
     <link rel="shortcut icon" href="icon/klixpdf-favicon.svg" type="image/x-icon">
-    
-    <!-- PWA Manifest -->
     <link rel="manifest" id="manifest-link">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,7 +20,6 @@
     <!-- PDF-Lib untuk manipulasi file PDF murni -->
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 
-    <!-- SETELAN TEMA KONTEKSTUAL (MERAH UNTUK PDF) -->
     <script>
         tailwind.config = {
             theme: {
@@ -50,7 +47,6 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
 
-    <!-- HEADER STANDAR TERKUNCI -->
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-2 flex-shrink-0 group">
@@ -73,7 +69,7 @@
                     <!-- MEGA MENU DROPDOWN -->
                     <div id="megaMenuContent" class="hidden absolute top-full right-0 mt-2 w-72 sm:w-[500px] bg-white rounded-xl shadow-xl border border-gray-100 transform origin-top-right transition-all max-h-[80vh] overflow-y-auto overflow-x-hidden">
                         <div class="p-4">
-                            <!-- Kategori: Alat PDF (Single Group) -->
+                            <!-- Kategori PDF -->
                             <div class="mb-2">
                                 <div class="flex items-center px-3 py-2 mb-1">
                                     <div class="w-1 h-3.5 bg-primary rounded-full mr-2"></div>
@@ -82,70 +78,69 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
                                     
                                     <!-- 1. Foto ke PDF -->
-                                    <a href="index.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                                    <a href="index.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
                                         <div class="w-6 text-center mr-2"><i class="fa-regular fa-images text-lg"></i></div>
                                         <div class="flex items-center justify-between w-full">
-                                            <span class="text-sm font-medium">Foto ke PDF</span>
+                                            <span class="text-sm">Foto ke PDF</span>
                                         </div>
                                     </a>
                                     
                                     <!-- 2. PDF ke Foto -->
-                                    <a href="pdf-to-img.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                                    <a href="pdf-to-img.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
                                         <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-pdf text-lg"></i></div>
                                         <div class="flex items-center justify-between w-full">
-                                            <span class="text-sm font-medium">PDF ke Foto</span>
+                                            <span class="text-sm">PDF ke Foto</span>
                                         </div>
                                     </a>
                                     
-                                    <!-- 3. Gabung PDF (AKTIF) -->
-                                    <a href="merge-pdf.html" class="flex items-center px-3 py-2 rounded-lg bg-red-50 text-primary transition-colors">
+                                    <!-- 3. Gabung PDF (Aktif) -->
+                                    <a href="merge-pdf.html" class="flex items-center px-3 py-2 rounded-lg bg-red-50 text-primary font-medium transition-colors">
                                         <div class="w-6 text-center mr-2"><i class="fa-solid fa-object-group text-lg"></i></div>
                                         <div class="flex items-center justify-between w-full">
-                                            <span class="text-sm font-medium">Gabung PDF</span>
+                                            <span class="text-sm">Gabung PDF</span>
                                         </div>
                                     </a>
 
-                                    <!-- 4. Kompres PDF -->
-                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed">
-                                        <div class="flex items-center">
-                                            <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-zipper text-lg"></i></div>
-                                            <span class="text-sm font-medium">Kompres PDF</span>
+                                    <!-- 4. Pisah PDF -->
+                                    <a href="split-pdf.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                        <div class="w-6 text-center mr-2"><i class="fa-solid fa-scissors text-lg"></i></div>
+                                        <div class="flex items-center justify-between w-full">
+                                            <span class="text-sm">Pisah PDF</span>
                                         </div>
-                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
                                     </a>
 
-                                    <!-- 5. Pisah PDF -->
-                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed">
+                                    <!-- 5. Kompres PDF -->
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
                                         <div class="flex items-center">
-                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-scissors text-lg"></i></div>
-                                            <span class="text-sm font-medium">Pisah PDF</span>
+                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-file-zipper text-lg"></i></div>
+                                            <span>Kompres PDF</span>
                                         </div>
                                         <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
                                     </a>
 
                                     <!-- 6. Kunci PDF -->
-                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed">
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
                                         <div class="flex items-center">
                                             <div class="w-6 text-center mr-2"><i class="fa-solid fa-lock text-lg"></i></div>
-                                            <span class="text-sm font-medium">Kunci PDF</span>
+                                            <span>Kunci PDF</span>
                                         </div>
                                         <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
                                     </a>
 
                                     <!-- 7. Hapus Kunci PDF -->
-                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed">
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
                                         <div class="flex items-center">
                                             <div class="w-6 text-center mr-2"><i class="fa-solid fa-unlock text-lg"></i></div>
-                                            <span class="text-sm font-medium">Hapus Kunci PDF</span>
+                                            <span>Hapus Kunci PDF</span>
                                         </div>
                                         <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
                                     </a>
 
                                     <!-- 8. Nomor Halaman -->
-                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed">
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
                                         <div class="flex items-center">
                                             <div class="w-6 text-center mr-2"><i class="fa-solid fa-list-ol text-lg"></i></div>
-                                            <span class="text-sm font-medium">Nomor Halaman</span>
+                                            <span>Nomor Halaman</span>
                                         </div>
                                         <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
                                     </a>
@@ -167,7 +162,6 @@
         </div>
     </header>
 
-    <!-- MAIN KONTEN -->
     <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
         
         <div class="flex-grow flex flex-col gap-4">
@@ -181,7 +175,7 @@
                 <span>Web 100% Offline dan Aman. Data Tidak Dikirim ke Server.</span>
             </div>
 
-            <!-- Dropzone (Standar Hover & Icon Color) -->
+            <!-- Dropzone -->
             <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-xl bg-white p-8 text-center cursor-pointer hover:bg-gray-50 hover:border-primary transition-colors flex flex-col items-center justify-center min-h-[160px] group">
                 <input type="file" id="fileInput" multiple accept="application/pdf" class="hidden">
                 <i class="fa-solid fa-object-group text-4xl text-gray-400 mb-3 group-hover:text-primary transition-colors"></i>
@@ -192,9 +186,12 @@
                 </button>
             </div>
 
-            <div class="flex justify-between items-center mt-4 hidden" id="gridHeader">
+            <!-- Header Grid & Tombol Hapus Semua (Konsisten dengan file lain) -->
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-4 hidden gap-3" id="gridHeader">
                 <h2 class="font-semibold text-gray-800"><span id="fileCount">0</span> PDF Dipilih</h2>
-                <button onclick="clearAll()" class="text-sm text-primary hover:text-red-700 font-medium">Hapus Semua</button>
+                <button onclick="clearAll(true)" class="text-sm font-medium px-4 py-2 bg-white border border-red-200 text-red-500 rounded-lg shadow-sm hover:bg-red-50 hover:text-red-600 transition-colors flex items-center">
+                    <i class="fa-solid fa-trash-can mr-1"></i> Hapus Semua
+                </button>
             </div>
 
             <!-- List File PDF -->
@@ -208,6 +205,7 @@
             </div>
         </div>
 
+        <!-- Area Pengaturan -->
         <div class="w-full lg:w-80 flex-shrink-0">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 sticky top-24">
                 <h2 class="font-semibold text-lg text-gray-800 border-b pb-3 mb-4"><i class="fa-solid fa-gear mr-2 text-gray-500"></i>Pengaturan Hasil</h2>
@@ -240,6 +238,33 @@
         </div>
     </main>
 
+    <!-- Custom Alert Modal -->
+    <div id="customAlert" class="fixed inset-0 bg-black bg-opacity-60 z-[60] hidden flex-col items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 text-center transform transition-transform scale-100">
+            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 text-primary text-2xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Pemberitahuan</h3>
+            <p id="customAlertMessage" class="text-gray-600 mb-6 text-sm">Pesan akan muncul di sini.</p>
+            <button onclick="closeCustomAlert()" class="bg-primary text-white font-semibold px-6 py-2.5 rounded-lg w-full hover:bg-red-600 transition-colors shadow-sm">Mengerti</button>
+        </div>
+    </div>
+
+    <!-- Custom Confirm Modal -->
+    <div id="customConfirm" class="fixed inset-0 bg-black bg-opacity-60 z-[60] hidden flex-col items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 text-center transform transition-transform scale-100">
+            <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 text-orange-500 text-2xl">
+                <i class="fa-solid fa-circle-question"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Konfirmasi</h3>
+            <p id="customConfirmMessage" class="text-gray-600 mb-6 text-sm">Apakah Anda yakin?</p>
+            <div class="flex gap-3">
+                <button onclick="closeCustomConfirm(false)" class="flex-1 bg-gray-100 text-gray-700 font-semibold px-4 py-2.5 rounded-lg hover:bg-gray-200 transition-colors">Batal</button>
+                <button onclick="closeCustomConfirm(true)" class="flex-1 bg-primary text-white font-semibold px-4 py-2.5 rounded-lg hover:bg-red-600 transition-colors shadow-sm">Ya, Hapus</button>
+            </div>
+        </div>
+    </div>
+
     <!-- LOADING OVERLAY -->
     <div id="loadingOverlay" class="fixed inset-0 bg-white bg-opacity-90 z-50 hidden flex-col items-center justify-center">
         <div class="w-16 h-16 border-4 border-gray-200 border-t-primary rounded-full animate-spin mb-4"></div>
@@ -248,28 +273,24 @@
         <p class="text-xs text-gray-400 mt-4 max-w-xs text-center">Mohon jangan tutup halaman ini.</p>
     </div>
 
-    <!-- Footer Area (Standar) -->
+    <!-- FOOTER -->
     <footer class="bg-white border-t border-gray-200 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col-reverse sm:flex-row items-center justify-between gap-4">
                 
-                <!-- Copyright -->
-                <div class="flex items-center justify-center gap-2 text-sm text-gray-500 order-2 sm:order-1">
-                    <i class="fa-solid fa-shield-halved text-gray-400"></i>
-                    <p>&copy; 2026 KlixFiles. <span class="hidden sm:inline">100% Offline & Aman.</span></p>
+                <div class="flex items-center gap-2 text-gray-500 text-sm">
+                    <img src="icon/klixpdf-icon.svg" alt="KlixFiles" class="h-5 w-5 grayscale opacity-60">
+                    <span>&copy; 2026 KlixFiles. Offline & Aman.</span>
                 </div>
-                
-                <!-- Actions -->
-                <div class="flex items-center justify-center gap-3 sm:gap-4 order-1 sm:order-2 w-full sm:w-auto">
-                    <!-- Kotak Saran (Border hilang saat hover) -->
-                    <a href="https://forms.gle/LINK_FORM_KAMU_DISINI" target="_blank" rel="noopener noreferrer" 
-                       class="group flex items-center justify-center gap-2 text-sm font-semibold text-gray-700 bg-gray-50 hover:bg-red-50 hover:text-primary hover:border-red-50 border border-gray-200 px-4 h-[40px] rounded-lg transition-colors" title="Beri masukan">
-                        <i class="fa-regular fa-comment-dots text-lg text-gray-400 group-hover:text-primary transition-colors"></i>
+
+                <div class="flex w-full sm:w-auto items-center justify-center gap-3">
+                    <a href="LINK_FORM_KAMU_DISINI" target="_blank" rel="noopener noreferrer" 
+                       class="h-[40px] px-4 flex items-center gap-2 bg-gray-50 text-gray-600 font-medium text-sm rounded-lg border border-transparent hover:bg-red-50 hover:text-primary hover:border-red-50 transition-all">
+                        <i class="fa-regular fa-comment-dots"></i>
                         <span class="sm:hidden">Saran</span>
                         <span class="hidden sm:inline">Kotak Saran</span>
                     </a>
                     
-                    <!-- Tombol Trakteer Inline -->
                     <div class="flex items-center h-[40px]">
                         <script type='text/javascript' src='https://edge-cdn.trakteer.id/js/embed/trbtn.min.js?v=14-05-2025'></script><script type='text/javascript'>(function(){var trbtnId=trbtn.init('Bantu Operasional Web','#EF4444','https://trakteer.id/mawramadhan','https://edge-cdn.trakteer.id/images/embed/trbtn-icon.png?v=14-05-2025','40');trbtn.draw(trbtnId);})();</script>
                     </div>
@@ -279,7 +300,7 @@
     </footer>
 
     <script>
-        // Mega Menu Logic (Konsisten)
+        // Mega Menu Logic
         const btnMegaMenu = document.getElementById('btnMegaMenu');
         const megaMenuContent = document.getElementById('megaMenuContent');
         const megaMenuIcon = document.getElementById('megaMenuIcon');
@@ -300,6 +321,35 @@
         // App Logic
         let pdfsData = new Map();
         let sortableInstance = null;
+        let confirmCallback = null;
+
+        // Custom Modal Functions
+        function showCustomAlert(msg) {
+            document.getElementById('customAlertMessage').textContent = msg;
+            document.getElementById('customAlert').classList.remove('hidden');
+            document.getElementById('customAlert').classList.add('flex');
+        }
+
+        function closeCustomAlert() {
+            document.getElementById('customAlert').classList.add('hidden');
+            document.getElementById('customAlert').classList.remove('flex');
+        }
+
+        function showCustomConfirm(msg, callback) {
+            document.getElementById('customConfirmMessage').textContent = msg;
+            document.getElementById('customConfirm').classList.remove('hidden');
+            document.getElementById('customConfirm').classList.add('flex');
+            confirmCallback = callback;
+        }
+
+        function closeCustomConfirm(isConfirmed) {
+            document.getElementById('customConfirm').classList.add('hidden');
+            document.getElementById('customConfirm').classList.remove('flex');
+            if (isConfirmed && confirmCallback) {
+                confirmCallback();
+            }
+            confirmCallback = null;
+        }
 
         const dropzone = document.getElementById('dropzone');
         const fileInput = document.getElementById('fileInput');
@@ -346,8 +396,10 @@
                         addedCount++;
                     } catch (err) {
                         console.error("Gagal membaca file:", err);
-                        alert("Gagal membaca file " + file.name);
+                        showCustomAlert("Gagal membaca file " + file.name);
                     }
+                } else {
+                    showCustomAlert("Harap masukkan file dengan format PDF.");
                 }
             }
 
@@ -408,6 +460,8 @@
             if (count > 0) {
                 emptyState.classList.add('hidden');
                 gridHeader.classList.remove('hidden');
+                gridHeader.classList.add('flex');
+                
                 // Tombol minimal harus ada 2 PDF baru bisa digabung
                 btnGenerate.disabled = count < 2; 
                 if(count === 1) {
@@ -417,6 +471,7 @@
                 }
             } else {
                 emptyState.classList.remove('hidden');
+                gridHeader.classList.remove('flex');
                 gridHeader.classList.add('hidden');
                 btnGenerate.disabled = true;
                 btnGenerate.innerHTML = `<i class="fa-solid fa-layer-group"></i> Gabung PDF Sekarang`;
@@ -432,12 +487,20 @@
             updateUI();
         }
 
-        function clearAll() {
-            if(confirm("Hapus semua PDF dari daftar?")) {
-                pdfsData.clear();
-                pdfList.innerHTML = '';
-                updateUI();
+        function clearAll(askConfirm = false) {
+            if(askConfirm) {
+                showCustomConfirm("Apakah Anda yakin ingin menghapus semua PDF dari daftar?", () => {
+                    executeClearAll();
+                });
+                return;
             }
+            executeClearAll();
+        }
+
+        function executeClearAll() {
+            pdfsData.clear();
+            pdfList.innerHTML = '';
+            updateUI();
         }
 
         async function mergePDFs() {
@@ -494,7 +557,7 @@
 
             } catch (error) {
                 console.error("Terjadi kesalahan:", error);
-                alert("Gagal menggabungkan PDF. Pastikan file PDF tidak dikunci kata sandi.");
+                showCustomAlert("Gagal menggabungkan PDF. Pastikan file PDF tidak dikunci kata sandi.");
             } finally {
                 loadingOverlay.classList.add('hidden');
                 loadingOverlay.classList.remove('flex');

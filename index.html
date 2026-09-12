@@ -63,23 +63,19 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
 
-    <!-- HEADER STANDAR TERKUNCI -->
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <!-- Logo -->
             <a href="index.html" class="flex items-center gap-2 flex-shrink-0 group">
                 <img src="icon/klixpdf-icon.svg" alt="Logo KlixFiles" class="h-8 w-8 object-contain transition-transform group-hover:scale-105">
                 <h1 class="font-bold text-xl tracking-tight text-gray-900">Klix<span class="text-primary">Files</span></h1>
             </a>
 
-            <!-- Sisi Kanan Header -->
             <div class="flex items-center gap-3 sm:gap-4">
                 <div class="hidden md:flex items-center gap-2 text-xs text-secondary bg-green-50 px-3 py-1.5 rounded-full border border-green-100">
                     <i class="fa-solid fa-shield-halved"></i>
                     <span>Web 100% Offline dan Aman. Data Tidak Dikirim ke Server.</span>
                 </div>
 
-                <!-- Dropdown Menu "Semua Alat" -->
                 <div class="relative">
                     <button id="btnMegaMenu" class="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 font-medium py-2 px-3 sm:px-4 rounded-lg transition-colors text-sm sm:text-base">
                         <span><i class="fa-solid fa-layer-group text-primary mr-1 hidden sm:inline"></i> Alat</span>
@@ -99,7 +95,7 @@
                                     
                                     <!-- 1. Foto ke PDF (Aktif) -->
                                     <a href="index.html" class="flex items-center px-3 py-2 rounded-lg bg-red-50 text-primary font-medium transition-colors">
-                                        <div class="w-6 text-center mr-2"><i class="fa-solid fa-images text-lg"></i></div>
+                                        <div class="w-6 text-center mr-2"><i class="fa-regular fa-images text-lg"></i></div>
                                         <div class="flex items-center justify-between w-full">
                                             <span class="text-sm">Foto ke PDF</span>
                                         </div>
@@ -121,20 +117,19 @@
                                         </div>
                                     </a>
 
-                                    <!-- 4. Kompres PDF -->
+                                    <!-- 4. Pisah PDF -->
+                                    <a href="split-pdf.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                        <div class="w-6 text-center mr-2"><i class="fa-solid fa-scissors text-lg"></i></div>
+                                        <div class="flex items-center justify-between w-full">
+                                            <span class="text-sm">Pisah PDF</span>
+                                        </div>
+                                    </a>
+
+                                    <!-- 5. Kompres PDF -->
                                     <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
                                         <div class="flex items-center">
                                             <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-zipper text-lg"></i></div>
                                             <span>Kompres PDF</span>
-                                        </div>
-                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
-                                    </a>
-                                    
-                                    <!-- 5. Pisah PDF -->
-                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
-                                        <div class="flex items-center">
-                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-scissors text-lg"></i></div>
-                                            <span>Pisah PDF</span>
                                         </div>
                                         <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
                                     </a>
@@ -198,7 +193,7 @@
                 <span>Web 100% Offline dan Aman. Data Tidak Dikirim ke Server.</span>
             </div>
 
-            <!-- Dropzone (Standar Hover: Abu-abu Terang & Ikon/Border Merah) -->
+            <!-- Dropzone dengan hover seragam -->
             <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-xl bg-white p-8 text-center cursor-pointer hover:bg-gray-50 hover:border-primary transition-colors flex flex-col items-center justify-center min-h-[160px] group">
                 <input type="file" id="fileInput" multiple accept="image/jpeg, image/png, image/webp" class="hidden">
                 <i class="fa-solid fa-images text-4xl text-gray-400 mb-3 group-hover:text-primary transition-colors"></i>
@@ -209,9 +204,12 @@
                 </button>
             </div>
 
-            <div class="flex justify-between items-center mt-4 hidden" id="gridHeader">
+            <!-- Header Grid & Tombol Hapus Semua -->
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-4 hidden gap-3" id="gridHeader">
                 <h2 class="font-semibold text-gray-800"><span id="photoCount">0</span> Foto Dipilih</h2>
-                <button onclick="clearAll()" class="text-sm text-primary hover:text-red-700 font-medium">Hapus Semua</button>
+                <button onclick="clearAll(true)" class="text-sm font-medium px-4 py-2 bg-white border border-red-200 text-red-500 rounded-lg shadow-sm hover:bg-red-50 hover:text-red-600 transition-colors flex items-center">
+                    <i class="fa-solid fa-trash-can mr-1"></i> Hapus Semua
+                </button>
             </div>
 
             <div id="imageGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 pb-8">
@@ -307,7 +305,7 @@
                 
                 <!-- Actions -->
                 <div class="flex items-center justify-center gap-3 sm:gap-4 order-1 sm:order-2 w-full sm:w-auto">
-                    <!-- Kotak Saran -->
+                    <!-- Kotak Saran (Border hilang saat hover) -->
                     <a href="https://forms.gle/LINK_FORM_KAMU_DISINI" target="_blank" rel="noopener noreferrer" 
                        class="group flex items-center justify-center gap-2 text-sm font-semibold text-gray-700 bg-gray-50 hover:bg-red-50 hover:text-primary hover:border-red-50 border border-gray-200 px-4 h-[40px] rounded-lg transition-colors" title="Beri masukan">
                         <i class="fa-regular fa-comment-dots text-lg text-gray-400 group-hover:text-primary transition-colors"></i>
@@ -323,6 +321,33 @@
             </div>
         </div>
     </footer>
+
+    <!-- Custom Alert Modal (Anti alert()) -->
+    <div id="customAlert" class="fixed inset-0 bg-black bg-opacity-60 z-[60] hidden flex-col items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 text-center transform transition-transform scale-100">
+            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 text-primary text-2xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Pemberitahuan</h3>
+            <p id="customAlertMessage" class="text-gray-600 mb-6 text-sm">Pesan akan muncul di sini.</p>
+            <button onclick="closeCustomAlert()" class="bg-primary text-white font-semibold px-6 py-2.5 rounded-lg w-full hover:bg-red-600 transition-colors shadow-sm">Mengerti</button>
+        </div>
+    </div>
+
+    <!-- Custom Confirm Modal (Anti confirm()) -->
+    <div id="customConfirm" class="fixed inset-0 bg-black bg-opacity-60 z-[60] hidden flex-col items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 text-center transform transition-transform scale-100">
+            <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 text-orange-500 text-2xl">
+                <i class="fa-solid fa-circle-question"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Konfirmasi</h3>
+            <p id="customConfirmMessage" class="text-gray-600 mb-6 text-sm">Apakah Anda yakin?</p>
+            <div class="flex gap-3">
+                <button onclick="closeCustomConfirm(false)" class="flex-1 bg-gray-100 text-gray-700 font-semibold px-4 py-2.5 rounded-lg hover:bg-gray-200 transition-colors">Batal</button>
+                <button onclick="closeCustomConfirm(true)" class="flex-1 bg-primary text-white font-semibold px-4 py-2.5 rounded-lg hover:bg-red-600 transition-colors shadow-sm">Ya, Hapus</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Editor -->
     <div id="cropperModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center p-4">
@@ -382,6 +407,36 @@
         let currentEditingId = null;
         let cropperInstance = null;
         let sortableInstance = null;
+
+        // Custom Modal Logic
+        let confirmCallback = null;
+
+        function showCustomAlert(msg) {
+            document.getElementById('customAlertMessage').textContent = msg;
+            document.getElementById('customAlert').classList.remove('hidden');
+            document.getElementById('customAlert').classList.add('flex');
+        }
+
+        function closeCustomAlert() {
+            document.getElementById('customAlert').classList.add('hidden');
+            document.getElementById('customAlert').classList.remove('flex');
+        }
+
+        function showCustomConfirm(msg, callback) {
+            document.getElementById('customConfirmMessage').textContent = msg;
+            document.getElementById('customConfirm').classList.remove('hidden');
+            document.getElementById('customConfirm').classList.add('flex');
+            confirmCallback = callback;
+        }
+
+        function closeCustomConfirm(isConfirmed) {
+            document.getElementById('customConfirm').classList.add('hidden');
+            document.getElementById('customConfirm').classList.remove('flex');
+            if (isConfirmed && confirmCallback) {
+                confirmCallback();
+            }
+            confirmCallback = null;
+        }
 
         const dropzone = document.getElementById('dropzone');
         const fileInput = document.getElementById('fileInput');
@@ -542,9 +597,11 @@
             if (count > 0) {
                 emptyState.classList.add('hidden');
                 gridHeader.classList.remove('hidden');
+                gridHeader.classList.add('flex');
                 btnGenerate.disabled = false;
             } else {
                 emptyState.classList.remove('hidden');
+                gridHeader.classList.remove('flex');
                 gridHeader.classList.add('hidden');
                 btnGenerate.disabled = true;
             }
@@ -564,13 +621,21 @@
             updateUI();
         }
 
-        function clearAll() {
-            if(confirm("Apakah Anda yakin ingin menghapus semua foto?")) {
-                imagesData.forEach(data => URL.revokeObjectURL(data.blobUrl));
-                imagesData.clear();
-                imageGrid.innerHTML = '';
-                updateUI();
+        function clearAll(askConfirm = false) {
+            if(askConfirm) {
+                showCustomConfirm("Apakah Anda yakin ingin menghapus semua foto yang telah dipilih?", () => {
+                    executeClearAll();
+                });
+                return;
             }
+            executeClearAll();
+        }
+
+        function executeClearAll() {
+            imagesData.forEach(data => URL.revokeObjectURL(data.blobUrl));
+            imagesData.clear();
+            imageGrid.innerHTML = '';
+            updateUI();
         }
 
         function openEditor(id, event) {
@@ -791,7 +856,7 @@
 
             } catch (error) {
                 console.error(error);
-                alert('Terjadi kesalahan saat membuat PDF: ' + error.message);
+                showCustomAlert('Terjadi kesalahan saat membuat PDF: ' + error.message);
             } finally {
                 loadingOverlay.classList.add('hidden');
                 loadingOverlay.classList.remove('flex');
