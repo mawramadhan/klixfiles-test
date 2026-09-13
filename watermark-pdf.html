@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Watermark PDF Gratis (Offline) - KlixFiles</title>
+    <meta name="description" content="Tambahkan cap air (watermark) teks atau gambar/logo ke dalam dokumen PDF Anda. 100% diproses di perangkat Anda, privasi terjamin tanpa server.">
+    <meta name="keywords" content="watermark pdf, cap air pdf, tambah teks pdf, tambah logo pdf, klixfiles, alat pdf aman">
+    <meta name="author" content="KlixFiles">
+
+    <link rel="shortcut icon" href="icon/klixpdf-favicon.svg" type="image/x-icon">
+    <link rel="manifest" id="manifest-link">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#ef4444', secondary: '#10b981' }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 flex-shrink-0 group">
+                <img src="icon/klixpdf-icon.svg" alt="Logo KlixFiles" class="h-8 w-8 object-contain transition-transform group-hover:scale-105">
+                <h1 class="font-bold text-xl tracking-tight text-gray-900">Klix<span class="text-primary">Files</span></h1>
+            </a>
+
+            <div class="flex items-center gap-3 sm:gap-4">
+                <div class="hidden md:flex items-center gap-2 text-xs text-secondary bg-green-50 px-3 py-1.5 rounded-full border border-green-100">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Web 100% Offline dan Aman. Data Tidak Dikirim ke Server.</span>
+                </div>
+
+                <div class="relative">
+                    <button id="btnMegaMenu" class="flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 font-medium py-2 px-3 sm:px-4 rounded-lg transition-colors text-sm sm:text-base">
+                        <span><i class="fa-solid fa-layer-group text-primary mr-1 hidden sm:inline"></i> Alat</span>
+                        <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200" id="megaMenuIcon"></i>
+                    </button>
+
+                    <div id="megaMenuContent" class="hidden absolute top-full right-0 mt-2 w-72 sm:w-[500px] bg-white rounded-xl shadow-xl border border-gray-100 transform origin-top-right transition-all max-h-[85vh] overflow-y-auto overflow-x-hidden">
+                        <div class="p-4">
+                            <div class="mb-2">
+                                <div class="flex items-center px-3 py-2 mb-1">
+                                    <div class="w-1 h-3.5 bg-primary rounded-full mr-2"></div>
+                                    <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Alat PDF</div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
+                                    <a href="index.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                        <div class="w-6 text-center mr-2"><i class="fa-regular fa-images text-lg"></i></div>
+                                        <div class="flex items-center justify-between w-full"><span>Foto ke PDF</span></div>
+                                    </a>
+                                    
+                                    <a href="pdf-to-img.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                        <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-pdf text-lg"></i></div>
+                                        <div class="flex items-center justify-between w-full"><span>PDF ke Foto</span></div>
+                                    </a>
+                                    
+                                    <a href="merge-pdf.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                        <div class="w-6 text-center mr-2"><i class="fa-regular fa-object-group text-lg"></i></div>
+                                        <div class="flex items-center justify-between w-full"><span>Gabung PDF</span></div>
+                                    </a>
+
+                                    <a href="split-pdf.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                        <div class="w-6 text-center mr-2"><i class="fa-solid fa-scissors text-lg"></i></div>
+                                        <div class="flex items-center justify-between w-full"><span>Pisah PDF</span></div>
+                                    </a>
+
+                                    <a href="watermark-pdf.html" class="flex items-center px-3 py-2 rounded-lg bg-red-50 text-primary font-medium transition-colors">
+                                        <div class="w-6 text-center mr-2"><i class="fa-solid fa-stamp text-lg"></i></div>
+                                        <div class="flex items-center justify-between w-full"><span>Watermark PDF</span></div>
+                                    </a>
+
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
+                                        <div class="flex items-center">
+                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-eye-slash text-lg"></i></div>
+                                            <span>Sensor PDF</span>
+                                        </div>
+                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
+                                    </a>
+
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
+                                        <div class="flex items-center">
+                                            <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-zipper text-lg"></i></div>
+                                            <span>Kompres PDF</span>
+                                        </div>
+                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
+                                    </a>
+
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
+                                        <div class="flex items-center">
+                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-lock text-lg"></i></div>
+                                            <span>Kunci PDF</span>
+                                        </div>
+                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
+                                    </a>
+
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
+                                        <div class="flex items-center">
+                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-unlock text-lg"></i></div>
+                                            <span>Hapus Kunci PDF</span>
+                                        </div>
+                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
+                                    </a>
+
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
+                                        <div class="flex items-center">
+                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-list-ol text-lg"></i></div>
+                                            <span>Nomor Halaman</span>
+                                        </div>
+                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <hr class="border-gray-100 my-2">
+
+                            <div class="bg-gray-50 rounded-xl p-3 border border-gray-100 text-center">
+                                <i class="fa-solid fa-rocket text-gray-300 text-xl mb-1"></i>
+                                <h4 class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">Lebih Banyak Alat</h4>
+                                <p class="text-[11px] text-gray-400">Konverter Gambar dan Alat Teks segera hadir.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
+        
+        <div class="flex-grow flex flex-col gap-4">
+            <div class="mb-2">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Watermark <span class="text-primary">PDF</span></h1>
+                <p class="text-sm text-gray-500 mt-1 sm:mt-2">Tandai dokumen Anda dengan teks atau logo transparan (cap air) agar aman dari pembajakan. Proses instan secara offline.</p>
+            </div>
+            
+            <div class="md:hidden flex items-center gap-2 text-xs text-secondary bg-green-50 px-3 py-2 rounded-lg border border-green-100 mb-2">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Web 100% Offline dan Aman. Data Tidak Dikirim ke Server.</span>
+            </div>
+
+            <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-xl bg-white p-8 text-center cursor-pointer hover:bg-gray-50 hover:border-primary transition-colors flex flex-col items-center justify-center min-h-[200px] group">
+                <input type="file" id="fileInput" accept="application/pdf" class="hidden">
+                <i class="fa-solid fa-stamp text-5xl text-gray-400 mb-4 group-hover:text-primary transition-colors"></i>
+                <h3 class="text-lg font-semibold text-gray-700">Pilih File PDF atau Drag & Drop</h3>
+                <p class="text-sm text-gray-500 mt-1">Maksimal 1 file PDF per pemrosesan</p>
+                <button class="mt-4 bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-red-600 shadow-sm transition-colors" onclick="document.getElementById('fileInput').click()">
+                    Pilih Dokumen PDF
+                </button>
+            </div>
+
+            <div id="fileInfoArea" class="hidden flex-col gap-4">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex items-center justify-between">
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="bg-red-100 text-primary w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-pdf text-xl"></i>
+                        </div>
+                        <div class="overflow-hidden">
+                            <h4 id="fileName" class="font-semibold text-gray-800 truncate">dokumen.pdf</h4>
+                            <p id="fileSize" class="text-sm text-gray-500">Ukuran asli: 0 MB</p>
+                        </div>
+                    </div>
+                    <button onclick="clearFile(true)" class="text-sm font-medium px-4 py-2 bg-white border border-red-200 text-red-500 rounded-lg shadow-sm hover:bg-red-50 hover:text-red-600 transition-colors flex items-center flex-shrink-0" title="Mulai Ulang">
+                        <i class="fa-solid fa-trash-can mr-1"></i> Mulai Ulang
+                    </button>
+                </div>
+                
+                <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex items-start gap-3">
+                    <i class="fa-solid fa-circle-info text-blue-500 mt-0.5"></i>
+                    <p class="text-xs text-blue-700 leading-relaxed">Cap air (watermark) akan diaplikasikan ke <strong>semua halaman</strong> dokumen Anda secara otomatis. Elemen bersifat transparan sehingga dokumen asli tetap bisa dibaca.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full lg:w-80 flex-shrink-0">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 sticky top-24">
+                <h2 class="font-semibold text-lg text-gray-800 border-b pb-3 mb-4"><i class="fa-solid fa-sliders mr-2 text-gray-500"></i>Setelan Watermark</h2>
+                
+                <!-- Toggle Mode Teks / Gambar -->
+                <div class="flex p-1 bg-gray-100 rounded-lg mb-5">
+                    <button id="btnModeText" class="flex-1 py-1.5 text-sm font-medium rounded-md bg-white shadow-sm text-gray-800 transition-all" onclick="switchMode('text')">
+                        Teks
+                    </button>
+                    <button id="btnModeImage" class="flex-1 py-1.5 text-sm font-medium rounded-md text-gray-500 hover:text-gray-700 transition-all" onclick="switchMode('image')">
+                        Gambar / Logo
+                    </button>
+                </div>
+                
+                <div class="space-y-4">
+                    <!-- Area Teks -->
+                    <div id="textSettings" class="space-y-4 block">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Teks Watermark</label>
+                            <input type="text" id="wmText" value="RAHASIA" placeholder="Ketik teks cap air..." class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2.5 px-3 border text-sm bg-white outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Warna Teks</label>
+                            <select id="wmColor" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2.5 px-3 border text-sm bg-white outline-none">
+                                <option value="gray">Abu-abu (Standar)</option>
+                                <option value="red">Merah (Peringatan)</option>
+                                <option value="blue">Biru (Dokumen Resmi)</option>
+                                <option value="black">Hitam Pekat</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Area Gambar -->
+                    <div id="imageSettings" class="space-y-4 hidden">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Upload Gambar / Logo</label>
+                            
+                            <!-- Container Upload -->
+                            <div id="logoUploadArea" class="block w-full">
+                                <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-red-50 hover:border-primary transition-colors">
+                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <i class="fa-solid fa-cloud-arrow-up text-xl text-gray-400 mb-2"></i>
+                                        <p class="text-xs text-gray-500"><span class="font-semibold text-primary">Pilih Gambar</span></p>
+                                        <p class="text-[10px] text-gray-400 mt-1">Disarankan PNG transparan</p>
+                                    </div>
+                                    <input id="logoInput" type="file" accept="image/png, image/jpeg" class="hidden" onchange="handleLogoUpload(event)" />
+                                </label>
+                            </div>
+
+                            <!-- Container Preview -->
+                            <div id="logoPreviewArea" class="hidden items-center justify-between bg-white p-3 border border-gray-200 rounded-lg shadow-sm">
+                                <div class="flex items-center gap-3 overflow-hidden">
+                                    <img id="logoPreviewImg" src="" alt="Logo preview" class="w-10 h-10 object-contain bg-gray-100 rounded p-1 border border-gray-200" />
+                                    <span id="logoFileName" class="text-xs font-semibold text-gray-700 truncate w-28">logo.png</span>
+                                </div>
+                                <button onclick="clearLogo()" class="text-gray-400 hover:text-red-500 w-8 h-8 flex items-center justify-center rounded bg-gray-50 hover:bg-red-50 transition-colors border border-transparent" title="Ganti Logo">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pengaturan Bersama -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Posisi & Skala</label>
+                        <select id="wmPosition" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2.5 px-3 border text-sm bg-white outline-none">
+                            <option value="diagonal">Miring Tengah (Diagonal)</option>
+                            <option value="horizontal">Lurus Tengah (Horizontal)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="pt-2 border-t">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nama File Output</label>
+                        <div class="flex shadow-sm rounded-md">
+                            <input type="text" id="outputFileName" value="KlixFiles-Watermark" placeholder="Masukkan nama" class="flex-grow border-gray-300 rounded-l-md focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2 px-3 border border-r-0 text-sm bg-white outline-none">
+                            <span class="inline-flex items-center px-3 rounded-r-md border border-gray-300 bg-gray-100 text-gray-600 text-sm font-medium cursor-not-allowed">
+                                .pdf
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t">
+                    <button id="btnGenerate" onclick="processWatermark()" class="w-full bg-secondary text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled>
+                        <i class="fa-solid fa-stamp"></i> Pasang Watermark
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom Alert Modal -->
+    <div id="customAlert" class="fixed inset-0 bg-black bg-opacity-60 z-[60] hidden flex-col items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 text-center transform transition-transform scale-100">
+            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 text-primary text-2xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Pemberitahuan</h3>
+            <p id="customAlertMessage" class="text-gray-600 mb-6 text-sm">Pesan akan muncul di sini.</p>
+            <button onclick="closeCustomAlert()" class="bg-primary text-white font-semibold px-6 py-2.5 rounded-lg w-full hover:bg-red-600 transition-colors shadow-sm">Mengerti</button>
+        </div>
+    </div>
+
+    <!-- Custom Confirm Modal -->
+    <div id="customConfirm" class="fixed inset-0 bg-black bg-opacity-60 z-[60] hidden flex-col items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 text-center transform transition-transform scale-100">
+            <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 text-orange-500 text-2xl">
+                <i class="fa-solid fa-circle-question"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Konfirmasi</h3>
+            <p id="customConfirmMessage" class="text-gray-600 mb-6 text-sm">Apakah Anda yakin?</p>
+            <div class="flex gap-3">
+                <button onclick="closeCustomConfirm(false)" class="flex-1 bg-gray-100 text-gray-700 font-semibold px-4 py-2.5 rounded-lg hover:bg-gray-200 transition-colors">Batal</button>
+                <button onclick="closeCustomConfirm(true)" class="flex-1 bg-primary text-white font-semibold px-4 py-2.5 rounded-lg hover:bg-red-600 transition-colors shadow-sm">Ya, Hapus</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-white bg-opacity-95 z-50 hidden flex-col items-center justify-center p-4">
+        <div class="w-16 h-16 border-4 border-gray-200 border-t-primary rounded-full animate-spin mb-4"></div>
+        <h2 class="text-xl font-bold text-gray-800 mb-2" id="loadingText">Menerapkan Cap Air...</h2>
+        <p id="loadingProgress" class="text-gray-500 font-medium">Memproses dokumen...</p>
+        <p class="text-xs text-gray-400 mt-4 max-w-xs text-center">Data diproses murni di perangkat Anda (Offline).</p>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col-reverse sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2 text-gray-500 text-sm">
+                    <img src="icon/klixpdf-icon.svg" alt="KlixFiles" class="h-5 w-5 grayscale opacity-60">
+                    <span>&copy; 2026 KlixFiles. Offline & Aman.</span>
+                </div>
+                <div class="flex w-full sm:w-auto items-center justify-center gap-3">
+                    <a href="LINK_FORM_KAMU_DISINI" target="_blank" rel="noopener noreferrer" 
+                       class="h-[40px] px-4 flex items-center gap-2 bg-gray-50 text-gray-600 font-medium text-sm rounded-lg border border-transparent hover:bg-red-50 hover:border-red-50 hover:text-primary transition-all">
+                        <i class="fa-regular fa-comment-dots"></i>
+                        <span class="sm:hidden">Saran</span>
+                        <span class="hidden sm:inline">Kotak Saran</span>
+                    </a>
+                    <div class="flex items-center h-[40px]">
+                        <script type='text/javascript' src='https://edge-cdn.trakteer.id/js/embed/trbtn.min.js?v=14-05-2025'></script><script type='text/javascript'>(function(){var trbtnId=trbtn.init('Bantu Operasional Web','#EF4444','https://trakteer.id/mawramadhan','https://edge-cdn.trakteer.id/images/embed/trbtn-icon.png?v=14-05-2025','40');trbtn.draw(trbtnId);})();</script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const btnMegaMenu = document.getElementById('btnMegaMenu');
+        const megaMenuContent = document.getElementById('megaMenuContent');
+        const megaMenuIcon = document.getElementById('megaMenuIcon');
+
+        btnMegaMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            megaMenuContent.classList.toggle('hidden');
+            megaMenuIcon.classList.toggle('rotate-180');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!megaMenuContent.contains(e.target) && !btnMegaMenu.contains(e.target)) {
+                megaMenuContent.classList.add('hidden');
+                megaMenuIcon.classList.remove('rotate-180');
+            }
+        });
+
+        // App States
+        let pdfArrayBuffer = null;
+        let pdfOriginalName = "";
+        let currentMode = 'text'; // 'text' atau 'image'
+        let logoFileBytes = null;
+        let logoFileType = '';
+        let confirmCallback = null;
+
+        // DOM Elements
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfoArea = document.getElementById('fileInfoArea');
+        const fileNameEl = document.getElementById('fileName');
+        const fileSizeEl = document.getElementById('fileSize');
+        const btnGenerate = document.getElementById('btnGenerate');
+        const outputFileName = document.getElementById('outputFileName');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loadingText = document.getElementById('loadingText');
+        const loadingProgress = document.getElementById('loadingProgress');
+
+        // Custom Modal Logic
+        function showCustomAlert(msg) {
+            document.getElementById('customAlertMessage').textContent = msg;
+            document.getElementById('customAlert').classList.remove('hidden');
+            document.getElementById('customAlert').classList.add('flex');
+        }
+        function closeCustomAlert() {
+            document.getElementById('customAlert').classList.add('hidden');
+            document.getElementById('customAlert').classList.remove('flex');
+        }
+        function showCustomConfirm(msg, callback) {
+            document.getElementById('customConfirmMessage').textContent = msg;
+            document.getElementById('customConfirm').classList.remove('hidden');
+            document.getElementById('customConfirm').classList.add('flex');
+            confirmCallback = callback;
+        }
+        function closeCustomConfirm(isConfirmed) {
+            document.getElementById('customConfirm').classList.add('hidden');
+            document.getElementById('customConfirm').classList.remove('flex');
+            if (isConfirmed && confirmCallback) confirmCallback();
+            confirmCallback = null;
+        }
+
+        // Toggle Text / Image Mode
+        function switchMode(mode) {
+            currentMode = mode;
+            const btnText = document.getElementById('btnModeText');
+            const btnImg = document.getElementById('btnModeImage');
+            const setTeks = document.getElementById('textSettings');
+            const setImg = document.getElementById('imageSettings');
+
+            if (mode === 'text') {
+                btnText.classList.add('bg-white', 'shadow-sm', 'text-gray-800');
+                btnText.classList.remove('text-gray-500', 'hover:text-gray-700');
+                btnImg.classList.remove('bg-white', 'shadow-sm', 'text-gray-800');
+                btnImg.classList.add('text-gray-500', 'hover:text-gray-700');
+                
+                setTeks.classList.remove('hidden');
+                setTeks.classList.add('block');
+                setImg.classList.add('hidden');
+                setImg.classList.remove('block');
+            } else {
+                btnImg.classList.add('bg-white', 'shadow-sm', 'text-gray-800');
+                btnImg.classList.remove('text-gray-500', 'hover:text-gray-700');
+                btnText.classList.remove('bg-white', 'shadow-sm', 'text-gray-800');
+                btnText.classList.add('text-gray-500', 'hover:text-gray-700');
+                
+                setImg.classList.remove('hidden');
+                setImg.classList.add('block');
+                setTeks.classList.add('hidden');
+                setTeks.classList.remove('block');
+            }
+        }
+
+        // Logo Upload Logic
+        async function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if(!file) return;
+            
+            if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
+                showCustomAlert("Format logo tidak didukung. Harap gunakan gambar PNG atau JPG.");
+                return;
+            }
+
+            logoFileType = file.type;
+            logoFileBytes = await file.arrayBuffer();
+            
+            const url = URL.createObjectURL(file);
+            document.getElementById('logoPreviewImg').src = url;
+            document.getElementById('logoFileName').textContent = file.name;
+            
+            document.getElementById('logoUploadArea').classList.add('hidden');
+            document.getElementById('logoUploadArea').classList.remove('block');
+            document.getElementById('logoPreviewArea').classList.remove('hidden');
+            document.getElementById('logoPreviewArea').classList.add('flex');
+            
+            document.getElementById('logoInput').value = '';
+        }
+
+        function clearLogo() {
+            logoFileBytes = null;
+            logoFileType = '';
+            document.getElementById('logoPreviewImg').src = '';
+            
+            document.getElementById('logoPreviewArea').classList.add('hidden');
+            document.getElementById('logoPreviewArea').classList.remove('flex');
+            document.getElementById('logoUploadArea').classList.remove('hidden');
+            document.getElementById('logoUploadArea').classList.add('block');
+        }
+
+        // PDF File Upload Logic
+        dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('bg-gray-50', 'border-primary'); });
+        dropzone.addEventListener('dragleave', (e) => { e.preventDefault(); dropzone.classList.remove('bg-gray-50', 'border-primary'); });
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault(); dropzone.classList.remove('bg-gray-50', 'border-primary');
+            if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+        });
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) handleFile(e.target.files[0]);
+            fileInput.value = '';
+        });
+
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024, dm = decimals < 0 ? 0 : decimals, sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        async function handleFile(file) {
+            if (file.type !== 'application/pdf') {
+                showCustomAlert('Tolong masukkan file bereksistensi PDF.');
+                return;
+            }
+            try {
+                pdfOriginalName = file.name;
+                pdfArrayBuffer = await file.arrayBuffer();
+                
+                fileNameEl.textContent = file.name;
+                fileSizeEl.textContent = `Ukuran asli: ${formatBytes(file.size)}`;
+                outputFileName.value = file.name.replace(/\.[^/.]+$/, "") + "-Watermark";
+                
+                dropzone.classList.add('hidden'); dropzone.classList.remove('flex');
+                fileInfoArea.classList.remove('hidden'); fileInfoArea.classList.add('flex');
+                btnGenerate.disabled = false;
+            } catch (error) {
+                console.error("Gagal membaca PDF:", error);
+                showCustomAlert('Gagal membaca file PDF.');
+            }
+        }
+
+        function clearFile(askConfirm = false) {
+            if (askConfirm && pdfArrayBuffer) {
+                showCustomConfirm("Yakin ingin menghapus dokumen PDF ini dan memulai dari awal?", () => { executeClearAll(); });
+                return;
+            }
+            executeClearAll();
+        }
+
+        function executeClearAll() {
+            pdfArrayBuffer = null;
+            pdfOriginalName = "";
+            fileInfoArea.classList.add('hidden'); fileInfoArea.classList.remove('flex');
+            dropzone.classList.remove('hidden'); dropzone.classList.add('flex');
+            outputFileName.value = "KlixFiles-Watermark";
+            btnGenerate.disabled = true;
+            fileInput.value = '';
+        }
+
+        async function processWatermark() {
+            if (!pdfArrayBuffer) return;
+            
+            const position = document.getElementById('wmPosition').value;
+            let fileName = outputFileName.value.trim() || "KlixFiles-Watermark";
+
+            if (currentMode === 'image' && !logoFileBytes) {
+                showCustomAlert('Silakan unggah gambar/logo watermark terlebih dahulu.');
+                return;
+            }
+
+            showLoading("Memasang Watermark...", "Menyiapkan mesin penggambar");
+            
+            try {
+                const pdfDoc = await PDFLib.PDFDocument.load(pdfArrayBuffer);
+                const pages = pdfDoc.getPages();
+                
+                if (currentMode === 'text') {
+                    // --- LOGIKA TEXT WATERMARK ---
+                    const textContent = document.getElementById('wmText').value.trim() || "RAHASIA";
+                    const colorVal = document.getElementById('wmColor').value;
+                    const font = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+                    
+                    let rgbColor;
+                    if(colorVal === 'red') rgbColor = PDFLib.rgb(0.9, 0.2, 0.2);
+                    else if(colorVal === 'blue') rgbColor = PDFLib.rgb(0.2, 0.4, 0.9);
+                    else if(colorVal === 'black') rgbColor = PDFLib.rgb(0.1, 0.1, 0.1);
+                    else rgbColor = PDFLib.rgb(0.6, 0.6, 0.6); 
+
+                    for (let i = 0; i < pages.length; i++) {
+                        loadingProgress.textContent = `Memproses halaman ${i + 1} dari ${pages.length}`;
+                        if(i % 10 === 0) await new Promise(r => setTimeout(r, 10)); 
+
+                        const page = pages[i];
+                        const { width, height } = page.getSize();
+                        let textSize = width * 0.15; 
+                        if(textSize > 120) textSize = 120; 
+                        
+                        const textWidth = font.widthOfTextAtSize(textContent, textSize);
+                        const textHeight = font.heightAtSize(textSize);
+
+                        if (position === 'diagonal') {
+                            const radians = Math.PI / 4; 
+                            const xOffset = (textWidth / 2) * Math.cos(radians) - (textHeight / 2) * Math.sin(radians);
+                            const yOffset = (textWidth / 2) * Math.sin(radians) + (textHeight / 2) * Math.cos(radians);
+
+                            page.drawText(textContent, {
+                                x: (width / 2) - xOffset, y: (height / 2) - yOffset,
+                                size: textSize, font: font, color: rgbColor, opacity: 0.35, rotate: PDFLib.degrees(45),
+                            });
+                        } else {
+                            page.drawText(textContent, {
+                                x: (width / 2) - (textWidth / 2), y: (height / 2) - (textHeight / 2),
+                                size: textSize, font: font, color: rgbColor, opacity: 0.35
+                            });
+                        }
+                    }
+                } else {
+                    // --- LOGIKA IMAGE WATERMARK ---
+                    let wmImage;
+                    if (logoFileType === 'image/png') {
+                        wmImage = await pdfDoc.embedPng(logoFileBytes);
+                    } else {
+                        wmImage = await pdfDoc.embedJpg(logoFileBytes);
+                    }
+                    const imgDims = wmImage.scale(1); 
+
+                    for (let i = 0; i < pages.length; i++) {
+                        loadingProgress.textContent = `Mengecap logo ke halaman ${i + 1} dari ${pages.length}`;
+                        if(i % 5 === 0) await new Promise(r => setTimeout(r, 10)); 
+
+                        const page = pages[i];
+                        const { width, height } = page.getSize();
+                        
+                        // Scale Logo agar pas (Maksimal 40% dari lebar kertas)
+                        const maxWidth = width * 0.4;
+                        let scaleFactor = maxWidth / imgDims.width;
+                        if(scaleFactor > 1) scaleFactor = 1; // Jangan perbesar kalau logo aslinya kecil
+                        
+                        const scaledWidth = imgDims.width * scaleFactor;
+                        const scaledHeight = imgDims.height * scaleFactor;
+
+                        if (position === 'diagonal') {
+                            const radians = Math.PI / 4; 
+                            const xOffset = (scaledWidth / 2) * Math.cos(radians) - (scaledHeight / 2) * Math.sin(radians);
+                            const yOffset = (scaledWidth / 2) * Math.sin(radians) + (scaledHeight / 2) * Math.cos(radians);
+
+                            page.drawImage(wmImage, {
+                                x: (width / 2) - xOffset, y: (height / 2) - yOffset,
+                                width: scaledWidth, height: scaledHeight,
+                                opacity: 0.35, rotate: PDFLib.degrees(45),
+                            });
+                        } else {
+                            page.drawImage(wmImage, {
+                                x: (width / 2) - (scaledWidth / 2), y: (height / 2) - (scaledHeight / 2),
+                                width: scaledWidth, height: scaledHeight,
+                                opacity: 0.35
+                            });
+                        }
+                    }
+                }
+
+                loadingText.textContent = "Menyimpan File PDF...";
+                loadingProgress.textContent = "Sedikit lagi selesai!";
+                await new Promise(r => setTimeout(r, 100)); 
+
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                downloadBlob(blob, `${fileName}.pdf`);
+
+            } catch (error) {
+                console.error("Proses gagal:", error);
+                showCustomAlert("Terjadi kesalahan saat memasang Watermark. Dokumen mungkin dikunci kata sandi atau korup.");
+            } finally { hideLoading(); }
+        }
+
+        function downloadBlob(blob, filename) {
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url; link.download = filename;
+            document.body.appendChild(link); link.click();
+            document.body.removeChild(link);
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        function showLoading(title, text) {
+            loadingText.textContent = title; loadingProgress.textContent = text;
+            loadingOverlay.classList.remove('hidden'); loadingOverlay.classList.add('flex');
+        }
+        function hideLoading() {
+            loadingOverlay.classList.add('hidden'); loadingOverlay.classList.remove('flex');
+        }
+    </script>
+</body>
+</html>
