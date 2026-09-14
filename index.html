@@ -10,20 +10,8 @@
     <meta name="author" content="KlixFiles">
     <meta name="robots" content="index, follow">
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Ubah Foto ke PDF dengan Aman - KlixFiles">
-    <meta property="og:description" content="Gabungkan foto menjadi PDF dengan mudah. File tidak pernah diunggah ke server, privasi 100% terjaga!">
-    <meta property="og:site_name" content="KlixFiles">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Ubah Foto ke PDF dengan Aman - KlixFiles">
-    <meta name="twitter:description" content="Gabungkan foto menjadi PDF tanpa upload ke server. Cepat, aman, dan bisa offline.">
-
     <!-- Standar Favicon -->
     <link rel="shortcut icon" href="icon/klixpdf-favicon.svg" type="image/x-icon">
-    
     <link rel="manifest" id="manifest-link">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,10 +25,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { 
-                        primary: '#ef4444', 
-                        secondary: '#10b981' 
-                    }
+                    colors: { primary: '#ef4444', secondary: '#10b981' }
                 }
             }
         }
@@ -83,58 +68,62 @@
                     </button>
 
                     <!-- MEGA MENU DROPDOWN -->
-                    <div id="megaMenuContent" class="hidden absolute top-full right-0 mt-2 w-72 sm:w-[500px] bg-white rounded-xl shadow-xl border border-gray-100 transform origin-top-right transition-all max-h-[80vh] overflow-y-auto overflow-x-hidden">
+                    <div id="megaMenuContent" class="hidden absolute top-full right-0 mt-2 w-72 sm:w-[500px] bg-white rounded-xl shadow-xl border border-gray-100 transform origin-top-right transition-all max-h-[85vh] overflow-y-auto overflow-x-hidden">
                         <div class="p-4">
-                            <!-- Kategori PDF -->
+                            
                             <div class="mb-2">
                                 <div class="flex items-center px-3 py-2 mb-1">
                                     <div class="w-1 h-3.5 bg-primary rounded-full mr-2"></div>
                                     <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Alat PDF</div>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
-                                    
-                                    <!-- 1. Foto ke PDF (Aktif) -->
+                                    <!-- a. Foto ke PDF -->
                                     <a href="index.html" class="flex items-center px-3 py-2 rounded-lg bg-red-50 text-primary font-medium transition-colors">
                                         <div class="w-6 text-center mr-2"><i class="fa-regular fa-images text-lg"></i></div>
-                                        <div class="flex items-center justify-between w-full">
-                                            <span class="text-sm">Foto ke PDF</span>
-                                        </div>
+                                        <div class="flex items-center justify-between w-full"><span class="text-sm">Foto ke PDF</span></div>
                                     </a>
-                                    
-                                    <!-- 2. PDF ke Foto -->
+                                    <!-- b. PDF ke Foto -->
                                     <a href="pdf-to-img.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
                                         <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-pdf text-lg"></i></div>
-                                        <div class="flex items-center justify-between w-full">
-                                            <span class="text-sm">PDF ke Foto</span>
-                                        </div>
+                                        <div class="flex items-center justify-between w-full"><span class="text-sm">PDF ke Foto</span></div>
                                     </a>
-                                    
-                                    <!-- 3. Gabung PDF -->
+                                    <!-- c. Gabung PDF -->
                                     <a href="merge-pdf.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
                                         <div class="w-6 text-center mr-2"><i class="fa-regular fa-object-group text-lg"></i></div>
-                                        <div class="flex items-center justify-between w-full">
-                                            <span class="text-sm">Gabung PDF</span>
-                                        </div>
+                                        <div class="flex items-center justify-between w-full"><span class="text-sm">Gabung PDF</span></div>
                                     </a>
-
-                                    <!-- 4. Pisah PDF -->
+                                    <!-- d. Pisah PDF -->
                                     <a href="split-pdf.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
                                         <div class="w-6 text-center mr-2"><i class="fa-solid fa-scissors text-lg"></i></div>
-                                        <div class="flex items-center justify-between w-full">
-                                            <span class="text-sm">Pisah PDF</span>
-                                        </div>
+                                        <div class="flex items-center justify-between w-full"><span class="text-sm">Pisah PDF</span></div>
                                     </a>
-
-                                    <!-- 5. Kompres PDF -->
+                                    <!-- e. Watermark PDF -->
+                                    <a href="watermark-pdf.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                        <div class="w-6 text-center mr-2"><i class="fa-solid fa-stamp text-lg"></i></div>
+                                        <div class="flex items-center justify-between w-full"><span class="text-sm">Watermark PDF</span></div>
+                                    </a>
+                                    <!-- f. Nomor Halaman -->
+                                    <a href="page-number.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                        <div class="w-6 text-center mr-2"><i class="fa-solid fa-list-ol text-lg"></i></div>
+                                        <div class="flex items-center justify-between w-full"><span class="text-sm">Nomor Halaman</span></div>
+                                    </a>
+                                    <!-- g. Sensor PDF segera -->
                                     <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
                                         <div class="flex items-center">
-                                            <div class="w-6 text-center mr-2"><i class="fa-regular fa-file-zipper text-lg"></i></div>
+                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-eye-slash text-lg"></i></div>
+                                            <span>Sensor PDF</span>
+                                        </div>
+                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
+                                    </a>
+                                    <!-- h. Kompres PDF segera -->
+                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
+                                        <div class="flex items-center">
+                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-file-zipper text-lg"></i></div>
                                             <span>Kompres PDF</span>
                                         </div>
                                         <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
                                     </a>
-
-                                    <!-- 6. Kunci PDF -->
+                                    <!-- i. Kunci PDF segera -->
                                     <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
                                         <div class="flex items-center">
                                             <div class="w-6 text-center mr-2"><i class="fa-solid fa-lock text-lg"></i></div>
@@ -142,21 +131,11 @@
                                         </div>
                                         <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
                                     </a>
-
-                                    <!-- 7. Hapus Kunci PDF -->
+                                    <!-- j. Hapus Kunci PDF segera -->
                                     <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
                                         <div class="flex items-center">
                                             <div class="w-6 text-center mr-2"><i class="fa-solid fa-unlock text-lg"></i></div>
                                             <span>Hapus Kunci PDF</span>
-                                        </div>
-                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
-                                    </a>
-
-                                    <!-- 8. Nomor Halaman -->
-                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
-                                        <div class="flex items-center">
-                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-list-ol text-lg"></i></div>
-                                            <span>Nomor Halaman</span>
                                         </div>
                                         <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
                                     </a>
@@ -165,7 +144,6 @@
                             
                             <hr class="border-gray-100 my-2">
 
-                            <!-- Placeholder Kategori Masa Depan -->
                             <div class="bg-gray-50 rounded-xl p-3 border border-gray-100 text-center">
                                 <i class="fa-solid fa-rocket text-gray-300 text-xl mb-1"></i>
                                 <h4 class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">Lebih Banyak Alat</h4>
@@ -180,7 +158,6 @@
 
     <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
         
-        <!-- Area Kiri -->
         <div class="flex-grow flex flex-col gap-4">
             
             <div class="mb-2">
@@ -193,7 +170,6 @@
                 <span>Web 100% Offline dan Aman. Data Tidak Dikirim ke Server.</span>
             </div>
 
-            <!-- Dropzone dengan hover seragam -->
             <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-xl bg-white p-8 text-center cursor-pointer hover:bg-gray-50 hover:border-primary transition-colors flex flex-col items-center justify-center min-h-[160px] group">
                 <input type="file" id="fileInput" multiple accept="image/jpeg, image/png, image/webp" class="hidden">
                 <i class="fa-solid fa-images text-4xl text-gray-400 mb-3 group-hover:text-primary transition-colors"></i>
@@ -204,7 +180,6 @@
                 </button>
             </div>
 
-            <!-- Header Grid & Tombol Hapus Semua -->
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-4 hidden gap-3" id="gridHeader">
                 <h2 class="font-semibold text-gray-800"><span id="photoCount">0</span> Foto Dipilih</h2>
                 <button onclick="clearAll(true)" class="text-sm font-medium px-4 py-2 bg-white border border-red-200 text-red-500 rounded-lg shadow-sm hover:bg-red-50 hover:text-red-600 transition-colors flex items-center">
@@ -222,7 +197,6 @@
             </div>
         </div>
 
-        <!-- Area Kanan -->
         <div class="w-full lg:w-80 flex-shrink-0">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 sticky top-24">
                 <h2 class="font-semibold text-lg text-gray-800 border-b pb-3 mb-4"><i class="fa-solid fa-gear mr-2 text-gray-500"></i>Pengaturan PDF</h2>
@@ -292,28 +266,21 @@
         </div>
     </main>
 
-    <!-- Footer Area (Standar) -->
+    <!-- FOOTER KONSISTEN -->
     <footer class="bg-white border-t border-gray-200 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
-                
-                <!-- Copyright -->
-                <div class="flex items-center justify-center gap-2 text-sm text-gray-500 order-2 sm:order-1">
-                    <i class="fa-solid fa-shield-halved text-gray-400"></i>
-                    <p>&copy; 2026 KlixFiles. <span class="hidden sm:inline">100% Offline & Aman.</span></p>
+            <div class="flex flex-col-reverse sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center text-gray-500 text-sm">
+                    <span>&copy; 2026 KlixFiles. Offline & Aman.</span>
                 </div>
-                
-                <!-- Actions -->
-                <div class="flex items-center justify-center gap-3 sm:gap-4 order-1 sm:order-2 w-full sm:w-auto">
-                    <!-- Kotak Saran (Border hilang saat hover) -->
+                <div class="flex w-full sm:w-auto items-center justify-center gap-3">
                     <a href="https://forms.gle/LINK_FORM_KAMU_DISINI" target="_blank" rel="noopener noreferrer" 
-                       class="group flex items-center justify-center gap-2 text-sm font-semibold text-gray-700 bg-gray-50 hover:bg-red-50 hover:text-primary hover:border-red-50 border border-gray-200 px-4 h-[40px] rounded-lg transition-colors" title="Beri masukan">
-                        <i class="fa-regular fa-comment-dots text-lg text-gray-400 group-hover:text-primary transition-colors"></i>
+                       class="h-[40px] px-4 flex items-center gap-2 bg-gray-50 text-gray-600 font-medium text-sm rounded-full border border-transparent hover:bg-red-50 hover:border-red-50 hover:text-primary transition-all" title="Beri masukan">
+                        <i class="fa-regular fa-comment-dots text-lg"></i>
                         <span class="sm:hidden">Saran</span>
                         <span class="hidden sm:inline">Kotak Saran</span>
                     </a>
                     
-                    <!-- Tombol Trakteer Inline -->
                     <div class="flex items-center h-[40px]">
                         <script type='text/javascript' src='https://edge-cdn.trakteer.id/js/embed/trbtn.min.js?v=14-05-2025'></script><script type='text/javascript'>(function(){var trbtnId=trbtn.init('Bantu Operasional Web','#EF4444','https://trakteer.id/mawramadhan','https://edge-cdn.trakteer.id/images/embed/trbtn-icon.png?v=14-05-2025','40');trbtn.draw(trbtnId);})();</script>
                     </div>
@@ -322,7 +289,7 @@
         </div>
     </footer>
 
-    <!-- Custom Alert Modal (Anti alert()) -->
+    <!-- Custom Alert Modal -->
     <div id="customAlert" class="fixed inset-0 bg-black bg-opacity-60 z-[60] hidden flex-col items-center justify-center p-4 backdrop-blur-sm transition-opacity">
         <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 text-center transform transition-transform scale-100">
             <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 text-primary text-2xl">
@@ -334,7 +301,7 @@
         </div>
     </div>
 
-    <!-- Custom Confirm Modal (Anti confirm()) -->
+    <!-- Custom Confirm Modal -->
     <div id="customConfirm" class="fixed inset-0 bg-black bg-opacity-60 z-[60] hidden flex-col items-center justify-center p-4 backdrop-blur-sm transition-opacity">
         <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 text-center transform transition-transform scale-100">
             <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 text-orange-500 text-2xl">
@@ -407,8 +374,6 @@
         let currentEditingId = null;
         let cropperInstance = null;
         let sortableInstance = null;
-
-        // Custom Modal Logic
         let confirmCallback = null;
 
         function showCustomAlert(msg) {
@@ -449,17 +414,8 @@
         const orientationWrapper = document.getElementById('orientationWrapper');
         const marginWrapper = document.getElementById('marginWrapper');
 
-        // Drag & Drop
-        dropzone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropzone.classList.add('border-primary', 'bg-gray-50');
-        });
-        
-        dropzone.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            dropzone.classList.remove('border-primary', 'bg-gray-50');
-        });
-
+        dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('border-primary', 'bg-gray-50'); });
+        dropzone.addEventListener('dragleave', (e) => { e.preventDefault(); dropzone.classList.remove('border-primary', 'bg-gray-50'); });
         dropzone.addEventListener('drop', (e) => {
             e.preventDefault();
             dropzone.classList.remove('border-primary', 'bg-gray-50');
@@ -494,9 +450,7 @@
             }
         });
 
-        function generateId() {
-            return Math.random().toString(36).substr(2, 9);
-        }
+        function generateId() { return Math.random().toString(36).substr(2, 9); }
 
         function handleFiles(files) {
             const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
@@ -532,7 +486,6 @@
             div.innerHTML = `
                 <div class="relative w-full aspect-square bg-gray-100 overflow-hidden" onclick="toggleOverlay(this)">
                     <img src="${url}" class="w-full h-full object-cover" alt="thumbnail">
-                    <!-- Overlay dikontrol oleh JavaScript untuk interaksi yang aman di Mobile, serta CSS hover khusus layar besar (lg:) -->
                     <div class="action-overlay absolute inset-0 bg-black bg-opacity-40 transition-opacity flex items-center justify-center gap-3 opacity-0 pointer-events-none lg:group-hover:opacity-100 lg:group-hover:pointer-events-auto">
                         <button onclick="openEditor('${id}', event)" class="bg-white text-gray-800 w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors" title="Edit">
                             <i class="fa-solid fa-crop-simple"></i>
@@ -552,18 +505,15 @@
             imageGrid.appendChild(div);
         }
 
-        // Fungsi khusus Mobile untuk memunculkan tombol tanpa mengeksekusinya
         function toggleOverlay(element) {
             const overlay = element.querySelector('.action-overlay');
             const isHidden = overlay.classList.contains('opacity-0');
             
-            // Tutup semua overlay di foto lain terlebih dahulu (biar layar tetap rapi)
             document.querySelectorAll('.action-overlay').forEach(ov => {
                 ov.classList.remove('opacity-100', 'pointer-events-auto');
                 ov.classList.add('opacity-0', 'pointer-events-none');
             });
 
-            // Jika yang disentuh tadi tersembunyi, sekarang tampilkan dan buat bisa diklik
             if (isHidden) {
                 overlay.classList.remove('opacity-0', 'pointer-events-none');
                 overlay.classList.add('opacity-100', 'pointer-events-auto');
@@ -585,9 +535,7 @@
 
         function updateOrderBadges() {
             const items = document.querySelectorAll('.image-item .order-badge');
-            items.forEach((badge, index) => {
-                badge.textContent = index + 1;
-            });
+            items.forEach((badge, index) => { badge.textContent = index + 1; });
         }
 
         function updateUI() {
@@ -623,7 +571,7 @@
 
         function clearAll(askConfirm = false) {
             if(askConfirm) {
-                showCustomConfirm("Apakah Anda yakin ingin menghapus semua foto yang telah dipilih?", () => {
+                showCustomConfirm("Apakah Anda yakin ingin menghapus semua foto?", () => {
                     executeClearAll();
                 });
                 return;
@@ -652,40 +600,23 @@
             setTimeout(() => {
                 if (cropperInstance) cropperInstance.destroy();
                 cropperInstance = new Cropper(imgElement, {
-                    viewMode: 1,
-                    dragMode: 'move',
-                    autoCropArea: 1,
-                    restore: false,
-                    guides: true,
-                    center: true,
-                    highlight: false,
-                    cropBoxMovable: true,
-                    cropBoxResizable: true,
-                    toggleDragModeOnDblclick: false,
+                    viewMode: 1, dragMode: 'move', autoCropArea: 1,
+                    restore: false, guides: true, center: true, highlight: false,
+                    cropBoxMovable: true, cropBoxResizable: true, toggleDragModeOnDblclick: false,
                 });
             }, 100);
         }
 
-        function rotateCropper(degree) {
-            if (cropperInstance) cropperInstance.rotate(degree);
-        }
-
-        function resetCropper() {
-            if (cropperInstance) cropperInstance.reset();
-        }
-
+        function rotateCropper(degree) { if (cropperInstance) cropperInstance.rotate(degree); }
+        function resetCropper() { if (cropperInstance) cropperInstance.reset(); }
         function closeModal() {
             document.getElementById('cropperModal').classList.add('hidden');
-            if (cropperInstance) {
-                cropperInstance.destroy();
-                cropperInstance = null;
-            }
+            if (cropperInstance) { cropperInstance.destroy(); cropperInstance = null; }
             currentEditingId = null;
         }
 
         function applyCrop() {
             if (!cropperInstance || !currentEditingId) return;
-            
             const canvas = cropperInstance.getCroppedCanvas();
             if (!canvas) return;
             
@@ -698,7 +629,6 @@
                 
                 const imgEl = document.querySelector(`.image-item[data-id="${currentEditingId}"] img`);
                 if (imgEl) imgEl.src = newUrl;
-                
                 closeModal();
             }, 'image/jpeg', 0.95);
         }
@@ -709,8 +639,7 @@
                 img.crossOrigin = "Anonymous";
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
+                    canvas.width = img.width; canvas.height = img.height;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0);
                     resolve({ canvas, width: img.width, height: img.height });
@@ -757,15 +686,12 @@
                     const { canvas, width: origW, height: origH } = await getCanvasFromUrl(data.blobUrl);
                     
                     let scale = 1;
-                    if (origW > maxDim || origH > maxDim) {
-                        scale = Math.min(maxDim / origW, maxDim / origH);
-                    }
+                    if (origW > maxDim || origH > maxDim) { scale = Math.min(maxDim / origW, maxDim / origH); }
                     const compW = Math.round(origW * scale);
                     const compH = Math.round(origH * scale);
                     
                     const compCanvas = document.createElement('canvas');
-                    compCanvas.width = compW;
-                    compCanvas.height = compH;
+                    compCanvas.width = compW; compCanvas.height = compH;
                     const ctx = compCanvas.getContext('2d');
                     ctx.fillStyle = '#FFFFFF';
                     ctx.fillRect(0, 0, compW, compH);
@@ -790,68 +716,43 @@
                         } else {
                             pageFormat = [wMM, hMM];
                             pageOrient = wMM > hMM ? 'l' : 'p';
-                            pageW = wMM;
-                            pageH = hMM;
+                            pageW = wMM; pageH = hMM;
                         }
                     } else {
                         if (paperSize === 'a4') { pageW = 210; pageH = 297; }
                         else if (paperSize === 'a5') { pageW = 148; pageH = 210; }
                         else if (paperSize === 'letter') { pageW = 215.9; pageH = 279.4; }
-                        
-                        if (orientation === 'l') {
-                            const temp = pageW; pageW = pageH; pageH = temp;
-                        }
+                        if (orientation === 'l') { const temp = pageW; pageW = pageH; pageH = temp; }
                     }
 
-                    if (doc === null) {
-                        doc = new jsPDF({ orientation: pageOrient, unit: 'mm', format: pageFormat });
-                    } else {
-                        doc.addPage(pageFormat, pageOrient);
-                    }
+                    if (doc === null) { doc = new jsPDF({ orientation: pageOrient, unit: 'mm', format: pageFormat }); } 
+                    else { doc.addPage(pageFormat, pageOrient); }
 
                     let finalMargin = paperSize === 'original' ? 0 : marginValue;
                     let workW = pageW - (2 * finalMargin);
                     let workH = pageH - (2 * finalMargin);
-
                     let drawW, drawH, drawX, drawY;
 
                     if (paperSize === 'original') {
-                        drawW = pageW;
-                        drawH = pageH;
-                        drawX = 0; 
-                        drawY = 0;
+                        drawW = pageW; drawH = pageH; drawX = 0; drawY = 0;
                     } else {
                         const ratioW = workW / origW;
                         const ratioH = workH / origH;
-                        
-                        let ratio;
-                        if (fitMode === 'fit') {
-                            ratio = Math.min(ratioW, ratioH);
-                        } else { 
-                            ratio = Math.max(ratioW, ratioH);
-                        }
-
-                        drawW = origW * ratio;
-                        drawH = origH * ratio;
-                        
+                        let ratio = fitMode === 'fit' ? Math.min(ratioW, ratioH) : Math.max(ratioW, ratioH);
+                        drawW = origW * ratio; drawH = origH * ratio;
                         drawX = finalMargin + (workW - drawW) / 2;
                         drawY = finalMargin + (workH - drawH) / 2;
                     }
 
                     doc.addImage(compressedDataUrl, 'JPEG', drawX, drawY, drawW, drawH);
-                    
-                    compCanvas.width = 0;
-                    canvas.width = 0;
+                    compCanvas.width = 0; canvas.width = 0;
                 }
 
                 loadingProgress.textContent = "Menyimpan File PDF...";
                 await new Promise(r => setTimeout(r, 100)); 
                 
                 let fileNameInput = document.getElementById('outputFileName').value.trim();
-                if (!fileNameInput) {
-                    fileNameInput = 'KlixFiles-Export';
-                }
-                
+                if (!fileNameInput) { fileNameInput = 'KlixFiles-Export'; }
                 doc.save(`${fileNameInput}.pdf`);
 
             } catch (error) {
@@ -862,16 +763,6 @@
                 loadingOverlay.classList.remove('flex');
             }
         }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('./sw.js').catch((err) => {
-                        console.log('SW Gagal:', err);
-                    });
-                });
-            }
-        });
     </script>
 </body>
 </html>

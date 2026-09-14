@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>Watermark PDF Gratis (Offline) - KlixFiles</title>
-    <meta name="description" content="Tambahkan cap air (watermark) teks atau gambar/logo ke dalam dokumen PDF Anda. 100% diproses di perangkat Anda, privasi terjamin tanpa server.">
-    <meta name="keywords" content="watermark pdf, cap air pdf, tambah teks pdf, tambah logo pdf, klixfiles, alat pdf aman">
+    <title>Beri Nomor Halaman PDF Gratis (Offline) - KlixFiles</title>
+    <meta name="description" content="Tambahkan nomor halaman ke dokumen PDF Anda dengan berbagai gaya. Proses 100% aman dan berjalan offline di perangkat Anda tanpa server.">
+    <meta name="keywords" content="nomor halaman pdf, tambah nomor pdf, page number pdf offline, klixfiles, alat pdf aman">
     <meta name="author" content="KlixFiles">
 
     <link rel="shortcut icon" href="icon/klixpdf-favicon.svg" type="image/x-icon">
@@ -37,6 +37,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
 
+    <!-- HEADER KONSISTEN -->
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-2 flex-shrink-0 group">
@@ -56,6 +57,7 @@
                         <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200" id="megaMenuIcon"></i>
                     </button>
 
+                    <!-- MEGA MENU DROPDOWN (10 FITUR) -->
                     <div id="megaMenuContent" class="hidden absolute top-full right-0 mt-2 w-72 sm:w-[500px] bg-white rounded-xl shadow-xl border border-gray-100 transform origin-top-right transition-all max-h-[85vh] overflow-y-auto overflow-x-hidden">
                         <div class="p-4">
                             <div class="mb-2">
@@ -85,12 +87,12 @@
                                         <div class="flex items-center justify-between w-full"><span class="text-sm">Pisah PDF</span></div>
                                     </a>
                                     <!-- e. Watermark PDF -->
-                                    <a href="watermark-pdf.html" class="flex items-center px-3 py-2 rounded-lg bg-red-50 text-primary font-medium transition-colors">
+                                    <a href="watermark-pdf.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
                                         <div class="w-6 text-center mr-2"><i class="fa-solid fa-stamp text-lg"></i></div>
                                         <div class="flex items-center justify-between w-full"><span class="text-sm">Watermark PDF</span></div>
                                     </a>
                                     <!-- f. Nomor Halaman -->
-                                    <a href="page-number.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                    <a href="page-number.html" class="flex items-center px-3 py-2 rounded-lg bg-red-50 text-primary font-medium transition-colors">
                                         <div class="w-6 text-center mr-2"><i class="fa-solid fa-list-ol text-lg"></i></div>
                                         <div class="flex items-center justify-between w-full"><span class="text-sm">Nomor Halaman</span></div>
                                     </a>
@@ -145,10 +147,11 @@
 
     <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8 overflow-hidden">
         
+        <!-- PERBAIKAN: Tambah min-w-0 agar flex child tidak melebihi container -->
         <div class="flex-grow flex flex-col gap-4 min-w-0">
             <div class="mb-2">
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Watermark <span class="text-primary">PDF</span></h1>
-                <p class="text-sm text-gray-500 mt-1 sm:mt-2">Tandai dokumen Anda dengan teks atau logo transparan (cap air) agar aman dari pembajakan. Proses instan secara offline.</p>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Nomor <span class="text-primary">Halaman</span></h1>
+                <p class="text-sm text-gray-500 mt-1 sm:mt-2">Beri nomor otomatis pada halaman PDF Anda. Atur posisi, gaya penulisan, dan rentang halaman sesuka hati dengan mudah.</p>
             </div>
             
             <div class="md:hidden flex items-center gap-2 text-xs text-secondary bg-green-50 px-3 py-2 rounded-lg border border-green-100 mb-2">
@@ -158,7 +161,7 @@
 
             <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-xl bg-white p-8 text-center cursor-pointer hover:bg-gray-50 hover:border-primary transition-colors flex flex-col items-center justify-center min-h-[200px] group">
                 <input type="file" id="fileInput" accept="application/pdf" class="hidden">
-                <i class="fa-solid fa-stamp text-5xl text-gray-400 mb-4 group-hover:text-primary transition-colors"></i>
+                <i class="fa-solid fa-list-ol text-5xl text-gray-400 mb-4 group-hover:text-primary transition-colors"></i>
                 <h3 class="text-lg font-semibold text-gray-700">Pilih File PDF atau Drag & Drop</h3>
                 <p class="text-sm text-gray-500 mt-1">Maksimal 1 file PDF per pemrosesan</p>
                 <button class="mt-4 bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-red-600 shadow-sm transition-colors" onclick="document.getElementById('fileInput').click()">
@@ -166,107 +169,106 @@
                 </button>
             </div>
 
-            <!-- PERBAIKAN: Menambahkan w-full dan min-w-0 agar nama panjang terpotong rapi (truncate) -->
+            <!-- PERBAIKAN: Tambah w-full dan pastikan overflow tertangani dengan min-w-0 -->
             <div id="fileInfoArea" class="hidden flex-col gap-4 w-full">
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex items-center justify-between gap-4 w-full">
-                    <div class="flex items-center gap-3 overflow-hidden min-w-0 flex-1">
+                    <div class="flex items-center gap-3 overflow-hidden flex-1 min-w-0">
                         <div class="bg-red-100 text-primary w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                             <i class="fa-solid fa-file-pdf text-xl"></i>
                         </div>
-                        <div class="overflow-hidden min-w-0 flex-1">
+                        <div class="overflow-hidden flex-1 min-w-0">
                             <h4 id="fileName" class="font-semibold text-gray-800 truncate" title="dokumen.pdf">dokumen.pdf</h4>
-                            <p id="fileSize" class="text-sm text-gray-500 truncate">Ukuran asli: 0 MB</p>
+                            <p id="fileTotalPages" class="text-sm text-gray-500">Menganalisa halaman...</p>
                         </div>
                     </div>
                     <button onclick="clearFile(true)" class="text-sm font-medium px-4 py-2 bg-white border border-red-200 text-red-500 rounded-lg shadow-sm hover:bg-red-50 hover:text-red-600 transition-colors flex items-center flex-shrink-0" title="Mulai Ulang">
-                        <i class="fa-solid fa-trash-can mr-1 hidden sm:inline"></i> <span class="sm:inline">Mulai Ulang</span>
+                        <i class="fa-solid fa-trash-can mr-1"></i> <span class="hidden sm:inline">Mulai Ulang</span>
                     </button>
-                </div>
-                
-                <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex items-start gap-3">
-                    <i class="fa-solid fa-circle-info text-blue-500 mt-0.5"></i>
-                    <p class="text-xs text-blue-700 leading-relaxed">Cap air (watermark) akan diaplikasikan ke <strong>semua halaman</strong> dokumen Anda secara otomatis. Elemen bersifat transparan sehingga dokumen asli tetap bisa dibaca.</p>
                 </div>
             </div>
         </div>
 
+        <!-- Area Pengaturan (Kanan) -->
         <div class="w-full lg:w-80 flex-shrink-0">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 sticky top-24">
-                <h2 class="font-semibold text-lg text-gray-800 border-b pb-3 mb-4"><i class="fa-solid fa-sliders mr-2 text-gray-500"></i>Setelan Watermark</h2>
-                
-                <!-- Toggle Mode Teks / Gambar -->
-                <div class="flex p-1 bg-gray-100 rounded-lg mb-5">
-                    <button id="btnModeText" class="flex-1 py-1.5 text-sm font-medium rounded-md bg-white shadow-sm text-gray-800 transition-all" onclick="switchMode('text')">
-                        Teks
-                    </button>
-                    <button id="btnModeImage" class="flex-1 py-1.5 text-sm font-medium rounded-md text-gray-500 hover:text-gray-700 transition-all" onclick="switchMode('image')">
-                        Gambar / Logo
-                    </button>
-                </div>
+                <h2 class="font-semibold text-lg text-gray-800 border-b pb-3 mb-4"><i class="fa-solid fa-sliders mr-2 text-gray-500"></i>Pengaturan Nomor</h2>
                 
                 <div class="space-y-4">
-                    <!-- Area Pengaturan Teks -->
-                    <div id="textSettings" class="space-y-4 block">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Teks Watermark</label>
-                            <input type="text" id="wmText" value="RAHASIA" placeholder="Ketik teks cap air..." class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2.5 px-3 border text-sm bg-white outline-none">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Warna Teks</label>
-                            <select id="wmColor" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2.5 px-3 border text-sm bg-white outline-none">
-                                <option value="gray">Abu-abu (Standar)</option>
-                                <option value="red">Merah (Peringatan)</option>
-                                <option value="blue">Biru (Dokumen Resmi)</option>
-                                <option value="black">Hitam Pekat</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Area Pengaturan Gambar/Logo -->
-                    <div id="imageSettings" class="space-y-4 hidden">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Upload Gambar / Logo</label>
-                            
-                            <!-- Area Upload -->
-                            <div id="logoUploadArea" class="block w-full">
-                                <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-red-50 hover:border-primary transition-colors">
-                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <i class="fa-solid fa-cloud-arrow-up text-xl text-gray-400 mb-2"></i>
-                                        <p class="text-xs text-gray-500"><span class="font-semibold text-primary">Pilih Gambar</span></p>
-                                        <p class="text-[10px] text-gray-400 mt-1">Disarankan PNG transparan</p>
-                                    </div>
-                                    <input id="logoInput" type="file" accept="image/png, image/jpeg" class="hidden" onchange="handleLogoUpload(event)" />
-                                </label>
-                            </div>
-
-                            <!-- Area Preview Logo -->
-                            <!-- PERBAIKAN: Menambahkan min-w-0 agar nama logo bisa terpotong -->
-                            <div id="logoPreviewArea" class="hidden items-center justify-between bg-white p-3 border border-gray-200 rounded-lg shadow-sm">
-                                <div class="flex items-center gap-3 overflow-hidden min-w-0">
-                                    <img id="logoPreviewImg" src="" alt="Logo preview" class="w-10 h-10 object-contain bg-gray-100 rounded p-1 border border-gray-200 flex-shrink-0" />
-                                    <span id="logoFileName" class="text-xs font-semibold text-gray-700 truncate min-w-0" title="logo.png">logo.png</span>
-                                </div>
-                                <button onclick="clearLogo()" class="text-gray-400 hover:text-red-500 w-8 h-8 flex items-center justify-center rounded bg-gray-50 hover:bg-red-50 transition-colors border border-transparent flex-shrink-0" title="Ganti Logo">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pengaturan Bersama (Teks & Gambar) -->
+                    <!-- Gaya Penulisan -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Posisi & Skala</label>
-                        <select id="wmPosition" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2.5 px-3 border text-sm bg-white outline-none">
-                            <option value="diagonal">Miring Tengah (Diagonal)</option>
-                            <option value="horizontal">Lurus Tengah (Horizontal)</option>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Gaya Penulisan</label>
+                        <select id="setFormat" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2.5 px-3 border text-sm bg-white outline-none cursor-pointer">
+                            <option value="number">1, 2, 3 ...</option>
+                            <option value="dashed">- 1 -, - 2 -, - 3 - ...</option>
+                            <option value="of">1 dari 10, 2 dari 10 ...</option>
+                            <option value="text">Halaman 1, Halaman 2 ...</option>
+                            <option value="roman_lower">i, ii, iii, iv ...</option>
+                            <option value="roman_upper">I, II, III, IV ...</option>
                         </select>
                     </div>
-                    
+
+                    <!-- Posisi Halaman -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Posisi di Halaman</label>
+                        <div class="grid grid-cols-3 gap-3 mt-2">
+                            <!-- Baris Atas -->
+                            <button class="pos-btn flex flex-col items-center justify-center p-3 border-2 border-gray-200 rounded-lg hover:border-primary hover:bg-red-50 text-gray-400 hover:text-primary transition-all group focus:outline-none" data-pos="top-left" title="Atas Kiri">
+                                <div class="w-8 h-10 border-2 border-current rounded flex items-start justify-start p-1"><span class="w-3 h-1.5 bg-current rounded-sm"></span></div>
+                            </button>
+                            <button class="pos-btn flex flex-col items-center justify-center p-3 border-2 border-gray-200 rounded-lg hover:border-primary hover:bg-red-50 text-gray-400 hover:text-primary transition-all group focus:outline-none" data-pos="top-center" title="Atas Tengah">
+                                <div class="w-8 h-10 border-2 border-current rounded flex items-start justify-center p-1"><span class="w-3 h-1.5 bg-current rounded-sm"></span></div>
+                            </button>
+                            <button class="pos-btn flex flex-col items-center justify-center p-3 border-2 border-gray-200 rounded-lg hover:border-primary hover:bg-red-50 text-gray-400 hover:text-primary transition-all group focus:outline-none" data-pos="top-right" title="Atas Kanan">
+                                <div class="w-8 h-10 border-2 border-current rounded flex items-start justify-end p-1"><span class="w-3 h-1.5 bg-current rounded-sm"></span></div>
+                            </button>
+                            <!-- Baris Bawah -->
+                            <button class="pos-btn flex flex-col items-center justify-center p-3 border-2 border-gray-200 rounded-lg hover:border-primary hover:bg-red-50 text-gray-400 hover:text-primary transition-all group focus:outline-none" data-pos="bottom-left" title="Bawah Kiri">
+                                <div class="w-8 h-10 border-2 border-current rounded flex items-end justify-start p-1"><span class="w-3 h-1.5 bg-current rounded-sm"></span></div>
+                            </button>
+                            <button class="pos-btn flex flex-col items-center justify-center p-3 border-2 border-primary bg-red-50 text-primary rounded-lg transition-all group focus:outline-none" data-pos="bottom-center" title="Bawah Tengah">
+                                <div class="w-8 h-10 border-2 border-current rounded flex items-end justify-center p-1"><span class="w-3 h-1.5 bg-current rounded-sm"></span></div>
+                            </button>
+                            <button class="pos-btn flex flex-col items-center justify-center p-3 border-2 border-gray-200 rounded-lg hover:border-primary hover:bg-red-50 text-gray-400 hover:text-primary transition-all group focus:outline-none" data-pos="bottom-right" title="Bawah Kanan">
+                                <div class="w-8 h-10 border-2 border-current rounded flex items-end justify-end p-1"><span class="w-3 h-1.5 bg-current rounded-sm"></span></div>
+                            </button>
+                        </div>
+                        <input type="hidden" id="setPosition" value="bottom-center">
+                    </div>
+
+                    <hr class="border-gray-100">
+
+                    <!-- Rentang Halaman & Mulai Angka -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Halaman yang Diberi Nomor</label>
+                        <select id="setRangeMode" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2.5 px-3 border text-sm bg-white outline-none cursor-pointer" onchange="toggleRangeInputs()">
+                            <option value="all">Semua Halaman</option>
+                            <option value="custom">Halaman Tertentu (Rentang)</option>
+                        </select>
+                    </div>
+
+                    <!-- Input Rentang (Tersembunyi by default) -->
+                    <div id="rangeInputsWrapper" class="hidden grid grid-cols-2 gap-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-500 uppercase">Dari Hal.</label>
+                            <input type="number" id="rangeStart" value="1" min="1" class="w-full mt-1 border-gray-300 rounded focus:border-primary focus:ring focus:ring-primary py-1 px-2 border text-sm outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-500 uppercase">Sampai Hal.</label>
+                            <input type="number" id="rangeEnd" value="1" min="1" class="w-full mt-1 border-gray-300 rounded focus:border-primary focus:ring focus:ring-primary py-1 px-2 border text-sm outline-none bg-white">
+                        </div>
+                        <div class="col-span-2 text-[10px] text-gray-400 leading-tight">Total halaman PDF ini: <span id="hintTotalPages" class="font-bold text-gray-600">0</span></div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Mulai Dari Angka</label>
+                        <input type="number" id="setStartNumber" value="1" min="1" class="w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2.5 px-3 border text-sm bg-white outline-none">
+                        <p class="text-[11px] text-gray-400 mt-1">Cth: Ketik 15 jika ingin cetakan angka dimulai dari 15.</p>
+                    </div>
+
                     <div class="pt-2 border-t">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Nama File Output</label>
                         <div class="flex shadow-sm rounded-md">
-                            <input type="text" id="outputFileName" value="KlixFiles-Watermark" placeholder="Masukkan nama" class="flex-grow min-w-0 border-gray-300 rounded-l-md focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2 px-3 border border-r-0 text-sm bg-white outline-none">
+                            <input type="text" id="outputFileName" value="KlixFiles-Numbered" placeholder="Masukkan nama" class="flex-grow border-gray-300 rounded-l-md focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 py-2 px-3 border border-r-0 text-sm bg-white outline-none min-w-0">
                             <span class="inline-flex items-center px-3 rounded-r-md border border-gray-300 bg-gray-100 text-gray-600 text-sm font-medium cursor-not-allowed">
                                 .pdf
                             </span>
@@ -275,8 +277,8 @@
                 </div>
 
                 <div class="mt-6 pt-4 border-t">
-                    <button id="btnGenerate" onclick="processWatermark()" class="w-full bg-secondary text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled>
-                        <i class="fa-solid fa-stamp"></i> Pasang Watermark
+                    <button id="btnGenerate" onclick="processPageNumbers()" class="w-full bg-secondary text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2" disabled>
+                        <i class="fa-solid fa-list-ol"></i> Terapkan Nomor
                     </button>
                 </div>
             </div>
@@ -335,12 +337,12 @@
     <!-- Loading Overlay -->
     <div id="loadingOverlay" class="fixed inset-0 bg-white bg-opacity-95 z-50 hidden flex-col items-center justify-center p-4">
         <div class="w-16 h-16 border-4 border-gray-200 border-t-primary rounded-full animate-spin mb-4"></div>
-        <h2 class="text-xl font-bold text-gray-800 mb-2" id="loadingText">Menerapkan Cap Air...</h2>
+        <h2 class="text-xl font-bold text-gray-800 mb-2" id="loadingText">Menerapkan Nomor...</h2>
         <p id="loadingProgress" class="text-gray-500 font-medium">Memproses dokumen...</p>
-        <p class="text-xs text-gray-400 mt-4 max-w-xs text-center">Data diproses murni di perangkat Anda (Offline).</p>
     </div>
 
     <script>
+        // Mega Menu Logic
         const btnMegaMenu = document.getElementById('btnMegaMenu');
         const megaMenuContent = document.getElementById('megaMenuContent');
         const megaMenuIcon = document.getElementById('megaMenuIcon');
@@ -358,24 +360,54 @@
             }
         });
 
-        // App States
+        // App Logic (Nomor Halaman)
         let pdfArrayBuffer = null;
-        let pdfOriginalName = "";
-        let currentMode = 'text'; // 'text' atau 'image'
-        let logoFileBytes = null;
-        let logoFileType = ''; // simpan mime type logo
+        let totalPDFPages = 0;
 
         const dropzone = document.getElementById('dropzone');
         const fileInput = document.getElementById('fileInput');
         const fileInfoArea = document.getElementById('fileInfoArea');
         const fileNameEl = document.getElementById('fileName');
-        const fileSizeEl = document.getElementById('fileSize');
+        const fileTotalPagesEl = document.getElementById('fileTotalPages');
         const btnGenerate = document.getElementById('btnGenerate');
         const outputFileName = document.getElementById('outputFileName');
+        
+        // Input elemen
+        const rangeStartInput = document.getElementById('rangeStart');
+        const rangeEndInput = document.getElementById('rangeEnd');
+        const hintTotalPages = document.getElementById('hintTotalPages');
         
         const loadingOverlay = document.getElementById('loadingOverlay');
         const loadingText = document.getElementById('loadingText');
         const loadingProgress = document.getElementById('loadingProgress');
+
+        // Logic Posisi Halaman (Grid UI)
+        document.querySelectorAll('.pos-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Reset semua button
+                document.querySelectorAll('.pos-btn').forEach(b => {
+                    b.className = 'pos-btn flex flex-col items-center justify-center p-3 border-2 border-gray-200 rounded-lg hover:border-primary hover:bg-red-50 text-gray-400 hover:text-primary transition-all group focus:outline-none';
+                });
+                // Set aktif
+                this.className = 'pos-btn flex flex-col items-center justify-center p-3 border-2 border-primary bg-red-50 text-primary rounded-lg transition-all group focus:outline-none';
+                document.getElementById('setPosition').value = this.dataset.pos;
+            });
+        });
+
+        function toggleRangeInputs() {
+            const mode = document.getElementById('setRangeMode').value;
+            const wrapper = document.getElementById('rangeInputsWrapper');
+            if (mode === 'custom') {
+                wrapper.classList.remove('hidden');
+                // Otomatis pastikan nilai maksimum tidak berlebih saat dibuka
+                if(totalPDFPages > 0) {
+                    rangeEndInput.value = totalPDFPages;
+                    rangeEndInput.max = totalPDFPages;
+                }
+            } else {
+                wrapper.classList.add('hidden');
+            }
+        }
 
         // Custom Modal Logic
         let confirmCallback = null;
@@ -401,80 +433,8 @@
         function closeCustomConfirm(isConfirmed) {
             document.getElementById('customConfirm').classList.add('hidden');
             document.getElementById('customConfirm').classList.remove('flex');
-            if (isConfirmed && confirmCallback) {
-                confirmCallback();
-            }
+            if (isConfirmed && confirmCallback) confirmCallback();
             confirmCallback = null;
-        }
-
-        // Fungsi untuk mengganti mode (Teks vs Gambar)
-        function switchMode(mode) {
-            currentMode = mode;
-            const btnText = document.getElementById('btnModeText');
-            const btnImg = document.getElementById('btnModeImage');
-            const setTeks = document.getElementById('textSettings');
-            const setImg = document.getElementById('imageSettings');
-
-            if (mode === 'text') {
-                btnText.classList.add('bg-white', 'shadow-sm', 'text-gray-800');
-                btnText.classList.remove('text-gray-500', 'hover:text-gray-700');
-                btnImg.classList.remove('bg-white', 'shadow-sm', 'text-gray-800');
-                btnImg.classList.add('text-gray-500', 'hover:text-gray-700');
-                
-                setTeks.classList.remove('hidden');
-                setTeks.classList.add('block');
-                setImg.classList.add('hidden');
-                setImg.classList.remove('block');
-            } else {
-                btnImg.classList.add('bg-white', 'shadow-sm', 'text-gray-800');
-                btnImg.classList.remove('text-gray-500', 'hover:text-gray-700');
-                btnText.classList.remove('bg-white', 'shadow-sm', 'text-gray-800');
-                btnText.classList.add('text-gray-500', 'hover:text-gray-700');
-                
-                setImg.classList.remove('hidden');
-                setImg.classList.add('block');
-                setTeks.classList.add('hidden');
-                setTeks.classList.remove('block');
-            }
-        }
-
-        // Handler Upload Logo
-        async function handleLogoUpload(event) {
-            const file = event.target.files[0];
-            if(!file) return;
-            
-            if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
-                showCustomAlert("Format logo tidak didukung. Harap gunakan gambar PNG atau JPG.");
-                return;
-            }
-
-            logoFileType = file.type;
-            logoFileBytes = await file.arrayBuffer();
-            
-            // Preview Image
-            const url = URL.createObjectURL(file);
-            document.getElementById('logoPreviewImg').src = url;
-            document.getElementById('logoFileName').textContent = file.name;
-            document.getElementById('logoFileName').title = file.name;
-            
-            // Switch UI
-            document.getElementById('logoUploadArea').classList.add('hidden');
-            document.getElementById('logoUploadArea').classList.remove('block');
-            document.getElementById('logoPreviewArea').classList.remove('hidden');
-            document.getElementById('logoPreviewArea').classList.add('flex');
-            
-            document.getElementById('logoInput').value = '';
-        }
-
-        function clearLogo() {
-            logoFileBytes = null;
-            logoFileType = '';
-            document.getElementById('logoPreviewImg').src = '';
-            
-            document.getElementById('logoPreviewArea').classList.add('hidden');
-            document.getElementById('logoPreviewArea').classList.remove('flex');
-            document.getElementById('logoUploadArea').classList.remove('hidden');
-            document.getElementById('logoUploadArea').classList.add('block');
         }
 
         // Drag & Drop
@@ -491,24 +451,13 @@
         dropzone.addEventListener('drop', (e) => {
             e.preventDefault();
             dropzone.classList.remove('bg-gray-50', 'border-primary');
-            if (e.dataTransfer.files.length > 0) {
-                handleFile(e.dataTransfer.files[0]);
-            }
+            if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
         });
 
         fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                handleFile(e.target.files[0]);
-            }
+            if (e.target.files.length > 0) handleFile(e.target.files[0]);
             fileInput.value = '';
         });
-
-        function formatBytes(bytes, decimals = 2) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024, dm = decimals < 0 ? 0 : decimals, sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-        }
 
         async function handleFile(file) {
             if (file.type !== 'application/pdf') {
@@ -517,25 +466,34 @@
             }
 
             try {
-                pdfOriginalName = file.name;
                 pdfArrayBuffer = await file.arrayBuffer();
                 
+                // Set UI Basic
                 fileNameEl.textContent = file.name;
-                fileNameEl.title = file.name;
-                fileSizeEl.textContent = `Ukuran asli: ${formatBytes(file.size)}`;
-                outputFileName.value = file.name.replace(/\.[^/.]+$/, "") + "-Watermark";
+                outputFileName.value = file.name.replace(/\.[^/.]+$/, "") + "-Numbered";
                 
                 dropzone.classList.add('hidden');
                 dropzone.classList.remove('flex');
-                
                 fileInfoArea.classList.remove('hidden');
                 fileInfoArea.classList.add('flex');
+
+                // Baca total halaman
+                const pdfDoc = await PDFLib.PDFDocument.load(pdfArrayBuffer.slice(0));
+                totalPDFPages = pdfDoc.getPageCount();
+                
+                fileTotalPagesEl.textContent = `Total: ${totalPDFPages} halaman`;
+                hintTotalPages.textContent = totalPDFPages;
+                
+                // Set batas input range
+                rangeEndInput.max = totalPDFPages;
+                rangeEndInput.value = totalPDFPages;
                 
                 btnGenerate.disabled = false;
 
             } catch (error) {
                 console.error("Gagal membaca PDF:", error);
-                showCustomAlert('Gagal membaca file PDF.');
+                showCustomAlert('Gagal membaca file PDF. Dokumen mungkin dikunci sandi.');
+                executeClearAll();
             }
         }
 
@@ -551,143 +509,121 @@
 
         function executeClearAll() {
             pdfArrayBuffer = null;
-            pdfOriginalName = "";
+            totalPDFPages = 0;
             
             fileInfoArea.classList.add('hidden');
             fileInfoArea.classList.remove('flex');
-            
             dropzone.classList.remove('hidden');
             dropzone.classList.add('flex');
             
-            outputFileName.value = "KlixFiles-Watermark";
+            outputFileName.value = "KlixFiles-Numbered";
+            document.getElementById('setStartNumber').value = 1;
             btnGenerate.disabled = true;
             fileInput.value = '';
         }
 
-        async function processWatermark() {
+        // Fungsi bantu: Konversi Angka ke Romawi
+        function toRoman(num) {
+            if (num < 1) return "";
+            const lookup = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1};
+            let roman = '';
+            for (let i in lookup) {
+                while (num >= lookup[i]) {
+                    roman += i;
+                    num -= lookup[i];
+                }
+            }
+            return roman;
+        }
+
+        async function processPageNumbers() {
             if (!pdfArrayBuffer) return;
             
-            const position = document.getElementById('wmPosition').value;
-            let fileName = outputFileName.value.trim() || "KlixFiles-Watermark";
-
-            // Validasi mode gambar
-            if (currentMode === 'image' && !logoFileBytes) {
-                showCustomAlert('Silakan unggah gambar/logo watermark terlebih dahulu.');
-                return;
+            let startPage = 1;
+            let endPage = totalPDFPages;
+            
+            const rangeMode = document.getElementById('setRangeMode').value;
+            if (rangeMode === 'custom') {
+                startPage = parseInt(rangeStartInput.value) || 1;
+                endPage = parseInt(rangeEndInput.value) || totalPDFPages;
+                
+                // Validasi agar tidak melebihi halaman asli atau salah input
+                if (startPage < 1) startPage = 1;
+                if (endPage > totalPDFPages) endPage = totalPDFPages;
+                if (startPage > endPage) {
+                    showCustomAlert("Halaman awal tidak boleh lebih besar dari halaman akhir!");
+                    return;
+                }
             }
 
-            showLoading("Memasang Watermark...", "Menyiapkan mesin penggambar");
+            const format = document.getElementById('setFormat').value;
+            const position = document.getElementById('setPosition').value;
+            const startNumber = parseInt(document.getElementById('setStartNumber').value) || 1;
+            let fileName = outputFileName.value.trim() || "KlixFiles-Numbered";
+
+            showLoading("Memproses Dokumen...", "Menambahkan nomor halaman");
             
             try {
-                // Load PDF original
                 const pdfDoc = await PDFLib.PDFDocument.load(pdfArrayBuffer);
+                const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
                 const pages = pdfDoc.getPages();
                 
-                if (currentMode === 'text') {
-                    // --- LOGIKA TEXT WATERMARK ---
-                    const textContent = document.getElementById('wmText').value.trim() || "RAHASIA";
-                    const colorVal = document.getElementById('wmColor').value;
-                    const font = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+                const textSize = 11; // Ukuran standar font
+                let currentNumber = startNumber;
+
+                // Loop hanya pada rentang halaman yang dipilih
+                for (let i = startPage - 1; i < endPage; i++) {
+                    if (i % 10 === 0) await new Promise(r => setTimeout(r, 10)); // Jeda UI
+                    loadingProgress.textContent = `Memberi nomor halaman ${i + 1} dari ${totalPDFPages}`;
+
+                    const page = pages[i];
+                    const { width, height } = page.getSize();
                     
-                    let rgbColor;
-                    if(colorVal === 'red') rgbColor = PDFLib.rgb(0.9, 0.2, 0.2);
-                    else if(colorVal === 'blue') rgbColor = PDFLib.rgb(0.2, 0.4, 0.9);
-                    else if(colorVal === 'black') rgbColor = PDFLib.rgb(0.1, 0.1, 0.1);
-                    else rgbColor = PDFLib.rgb(0.6, 0.6, 0.6); // gray default
+                    // Format Teks
+                    let textToDraw = "";
+                    if (format === 'number') textToDraw = `${currentNumber}`;
+                    else if (format === 'dashed') textToDraw = `- ${currentNumber} -`;
+                    else if (format === 'of') textToDraw = `${currentNumber} dari ${totalPDFPages}`;
+                    else if (format === 'text') textToDraw = `Halaman ${currentNumber}`;
+                    else if (format === 'roman_lower') textToDraw = toRoman(currentNumber).toLowerCase();
+                    else if (format === 'roman_upper') textToDraw = toRoman(currentNumber);
 
-                    for (let i = 0; i < pages.length; i++) {
-                        loadingProgress.textContent = `Memproses halaman ${i + 1} dari ${pages.length}`;
-                        if(i % 10 === 0) await new Promise(r => setTimeout(r, 10)); // Jeda UI
+                    // Kalkulasi Koordinat
+                    const textWidth = font.widthOfTextAtSize(textToDraw, textSize);
+                    let xPos = 0, yPos = 0;
+                    const marginX = 30; // Jarak dari pinggir (kiri/kanan)
+                    const marginY = 30; // Jarak dari pinggir (atas/bawah)
 
-                        const page = pages[i];
-                        const { width, height } = page.getSize();
-                        
-                        let textSize = width * 0.15; 
-                        if(textSize > 120) textSize = 120; // limit maksimal
-                        
-                        const textWidth = font.widthOfTextAtSize(textContent, textSize);
-                        const textHeight = font.heightAtSize(textSize);
+                    if (position.includes('left')) xPos = marginX;
+                    else if (position.includes('center')) xPos = (width / 2) - (textWidth / 2);
+                    else if (position.includes('right')) xPos = width - marginX - textWidth;
 
-                        if (position === 'diagonal') {
-                            const radians = Math.PI / 4; // 45 derajat
-                            const xOffset = (textWidth / 2) * Math.cos(radians) - (textHeight / 2) * Math.sin(radians);
-                            const yOffset = (textWidth / 2) * Math.sin(radians) + (textHeight / 2) * Math.cos(radians);
+                    if (position.includes('top')) yPos = height - marginY - textSize;
+                    else if (position.includes('bottom')) yPos = marginY;
 
-                            page.drawText(textContent, {
-                                x: (width / 2) - xOffset,
-                                y: (height / 2) - yOffset,
-                                size: textSize, font: font, color: rgbColor,
-                                opacity: 0.35, rotate: PDFLib.degrees(45),
-                            });
-                        } else {
-                            page.drawText(textContent, {
-                                x: (width / 2) - (textWidth / 2),
-                                y: (height / 2) - (textHeight / 2),
-                                size: textSize, font: font, color: rgbColor,
-                                opacity: 0.35
-                            });
-                        }
-                    }
-                } else {
-                    // --- LOGIKA IMAGE WATERMARK ---
-                    let wmImage;
-                    if (logoFileType === 'image/png') {
-                        wmImage = await pdfDoc.embedPng(logoFileBytes);
-                    } else {
-                        wmImage = await pdfDoc.embedJpg(logoFileBytes);
-                    }
-                    const imgDims = wmImage.scale(1); 
+                    // Menggambar Teks
+                    page.drawText(textToDraw, {
+                        x: xPos,
+                        y: yPos,
+                        size: textSize,
+                        font: font,
+                        color: PDFLib.rgb(0, 0, 0), // Hitam
+                    });
 
-                    for (let i = 0; i < pages.length; i++) {
-                        loadingProgress.textContent = `Mengecap logo ke halaman ${i + 1} dari ${pages.length}`;
-                        if(i % 5 === 0) await new Promise(r => setTimeout(r, 10)); // Jeda UI
-
-                        const page = pages[i];
-                        const { width, height } = page.getSize();
-                        
-                        // Menyesuaikan ukuran (Scale) logo agar proporsional
-                        // Maksimal logo akan mengambil 40% dari lebar kertas
-                        const maxWidth = width * 0.4;
-                        let scaleFactor = maxWidth / imgDims.width;
-                        if(scaleFactor > 1) scaleFactor = 1; // Jangan perbesar jika logo aslinya kecil
-                        
-                        const scaledWidth = imgDims.width * scaleFactor;
-                        const scaledHeight = imgDims.height * scaleFactor;
-
-                        if (position === 'diagonal') {
-                            const radians = Math.PI / 4; 
-                            const xOffset = (scaledWidth / 2) * Math.cos(radians) - (scaledHeight / 2) * Math.sin(radians);
-                            const yOffset = (scaledWidth / 2) * Math.sin(radians) + (scaledHeight / 2) * Math.cos(radians);
-
-                            page.drawImage(wmImage, {
-                                x: (width / 2) - xOffset,
-                                y: (height / 2) - yOffset,
-                                width: scaledWidth, height: scaledHeight,
-                                opacity: 0.35, rotate: PDFLib.degrees(45),
-                            });
-                        } else {
-                            page.drawImage(wmImage, {
-                                x: (width / 2) - (scaledWidth / 2),
-                                y: (height / 2) - (scaledHeight / 2),
-                                width: scaledWidth, height: scaledHeight,
-                                opacity: 0.35
-                            });
-                        }
-                    }
+                    currentNumber++;
                 }
 
                 loadingText.textContent = "Menyimpan File PDF...";
                 loadingProgress.textContent = "Sedikit lagi selesai!";
                 await new Promise(r => setTimeout(r, 100)); 
 
-                // Generate PDF baru
                 const pdfBytes = await pdfDoc.save();
                 const blob = new Blob([pdfBytes], { type: 'application/pdf' });
                 downloadBlob(blob, `${fileName}.pdf`);
 
             } catch (error) {
                 console.error("Proses gagal:", error);
-                showCustomAlert("Terjadi kesalahan saat memasang Watermark. Dokumen mungkin dikunci kata sandi.");
+                showCustomAlert("Terjadi kesalahan. Dokumen mungkin rusak atau dikunci kata sandi.");
             } finally {
                 hideLoading();
             }
