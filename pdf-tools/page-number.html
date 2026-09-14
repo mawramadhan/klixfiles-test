@@ -9,7 +9,7 @@
     <meta name="keywords" content="nomor halaman pdf, tambah nomor pdf, page number pdf offline, klixfiles, alat pdf aman">
     <meta name="author" content="KlixFiles">
 
-    <link rel="shortcut icon" href="icon/klixpdf-favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="../icon/klixfiles-pdf-favicon.svg" type="image/x-icon">
     <link rel="manifest" id="manifest-link">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,7 +22,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { primary: '#ef4444', secondary: '#10b981' }
+                    colors: { primary: '#ef4444', secondary: '#10b981', blue: '#3b82f6' }
                 }
             }
         }
@@ -41,7 +41,7 @@
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-2 flex-shrink-0 group">
-                <img src="icon/klixpdf-icon.svg" alt="Logo KlixFiles" class="h-8 w-8 object-contain transition-transform group-hover:scale-105">
+                <img src="../icon/klixfiles-pdf-icon.svg" alt="Logo KlixFiles" class="h-8 w-8 object-contain transition-transform group-hover:scale-105">
                 <h1 class="font-bold text-xl tracking-tight text-gray-900">Klix<span class="text-primary">Files</span></h1>
             </a>
 
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
                                     <!-- a. Foto ke PDF -->
-                                    <a href="index.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                    <a href="img-to-pdf.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
                                         <div class="w-6 text-center mr-2"><i class="fa-regular fa-images text-lg"></i></div>
                                         <div class="flex items-center justify-between w-full"><span class="text-sm">Foto ke PDF</span></div>
                                     </a>
@@ -92,42 +92,27 @@
                                         <div class="flex items-center justify-between w-full"><span class="text-sm">Watermark PDF</span></div>
                                     </a>
                                     <!-- f. Nomor Halaman -->
-                                    <a href="page-number.html" class="flex items-center px-3 py-2 rounded-lg bg-red-50 text-primary font-medium transition-colors">
+                                    <a href="#" class="flex items-center px-3 py-2 rounded-lg bg-red-50 text-primary font-medium transition-colors">
                                         <div class="w-6 text-center mr-2"><i class="fa-solid fa-list-ol text-lg"></i></div>
                                         <div class="flex items-center justify-between w-full"><span class="text-sm">Nomor Halaman</span></div>
                                     </a>
-                                    <!-- g. Sensor PDF segera -->
-                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
-                                        <div class="flex items-center">
-                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-eye-slash text-lg"></i></div>
-                                            <span>Sensor PDF</span>
-                                        </div>
-                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
-                                    </a>
-                                    <!-- h. Kompres PDF segera -->
-                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
-                                        <div class="flex items-center">
-                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-file-zipper text-lg"></i></div>
-                                            <span>Kompres PDF</span>
-                                        </div>
-                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
-                                    </a>
-                                    <!-- i. Kunci PDF segera -->
-                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
-                                        <div class="flex items-center">
-                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-lock text-lg"></i></div>
-                                            <span>Kunci PDF</span>
-                                        </div>
-                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
-                                    </a>
-                                    <!-- j. Hapus Kunci PDF segera -->
-                                    <a href="#" class="flex items-center justify-between px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed text-sm">
-                                        <div class="flex items-center">
-                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-unlock text-lg"></i></div>
-                                            <span>Hapus Kunci PDF</span>
-                                        </div>
-                                        <span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 font-semibold">Segera</span>
-                                    </a>
+                                </div>
+                            
+                                <hr class="border-gray-100 my-2">
+
+                                <!-- Kategori Alat Gambar -->
+                                <div class="mb-2">
+                                    <div class="flex items-center px-3 py-2 mb-1">
+                                        <div class="w-1 h-3.5 bg-blue rounded-full mr-2"></div>
+                                        <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Alat Gambar</div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
+                                        <!-- Image Resizer -->
+                                        <a href="../image-tools/image-resizer.html" class="flex items-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors font-medium">
+                                            <div class="w-6 text-center mr-2"><i class="fa-solid fa-up-right-and-down-left-from-center text-lg"></i></div>
+                                            <div class="flex items-center justify-between w-full"><span class="text-sm">Ubah Ukuran Foto</span></div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -135,8 +120,8 @@
 
                             <div class="bg-gray-50 rounded-xl p-3 border border-gray-100 text-center">
                                 <i class="fa-solid fa-rocket text-gray-300 text-xl mb-1"></i>
-                                <h4 class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">Lebih Banyak Alat</h4>
-                                <p class="text-[11px] text-gray-400">Konverter Gambar dan Alat Teks segera hadir.</p>
+                                <h4 class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-0.5">Segera</h4>
+                                <p class="text-[11px] text-gray-400">Alat Teks dan Alat lain segera hadir.</p>
                             </div>
                         </div>
                     </div>
